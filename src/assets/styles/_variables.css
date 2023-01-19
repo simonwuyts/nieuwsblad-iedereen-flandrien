@@ -1,0 +1,24 @@
+:root {
+  --color-nb-dark-blue: #000068;
+  --color-nb-yellow: #f7d611;
+  --color-nb-purple: #5811f4;
+  --color-nb-orange: #f75821;
+  --color-nb-pink: #ef83f7;
+  --color-nb-green: #00ed36;
+  --color-nb-blue: #29abe2;
+
+  --color-primary: var(--color-nb-dark-blue);
+  --color-accent: var(--color-nb-orange);
+  --color-title: var(--color-nb-dark-blue);
+  --color-button: var(--color-accent);
+  --color-sticker-accent: var(--color-accent);
+
+  --font-family-text: Roboto, -apple-system, BlinkMacSystemFont, avenir next,
+    avenir, segoe ui, helvetica neue, helvetica, Ubuntu, noto, arial, sans-serif;
+  --font-family-button: Roboto, sans-serif;
+  --font-family-title: Produkt, -apple-system, BlinkMacSystemFont, avenir next,
+    avenir, segoe ui, helvetica neue, helvetica, Ubuntu, roboto, noto, arial,
+    sans-serif;
+
+  --padding-page: 24px;
+}
