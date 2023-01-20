@@ -21,3 +21,22 @@ export async function getCities(zipCodeOrCity: string) {
     return []
   }
 }
+
+export interface SelligentUserInfo {
+  MAIL: string
+  NIVEAU: string
+  GESLACHT: string
+  VOORNAAM: string
+  NAAM: string
+}
+
+export async function getUserInfo(email: string): Promise<SelligentUserInfo> {
+  const ENDPOINT =
+    'https://interactief2.nieuwsblad.be/WedstrijdCR/WedstrijdCR.aspx?ID=iJBMCuK5CoBimLCujuAd5E27Y_K5YcJ6qHoFXTa%2B%2BxNyDloYmSeqjvItUBEIGBV2IDBQk1115NVTCW&notags=1&MAIL='
+
+  const result = await (
+    await fetch(`${ENDPOINT}${encodeURIComponent(email)}`)
+  ).json()
+
+  return result
+}

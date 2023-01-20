@@ -8,7 +8,7 @@
   --color-nb-blue: #29abe2;
 
   --color-primary: var(--color-nb-dark-blue);
-  --color-accent: var(--color-nb-orange);
+  --color-accent: var(--color-nb-pink);
   --color-title: var(--color-nb-dark-blue);
   --color-button: var(--color-accent);
   --color-sticker-accent: var(--color-accent);
