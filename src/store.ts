@@ -10,6 +10,17 @@ interface State {
     level: string
     sex: string
   }>
+  firebaseUserData?: {
+    maxHeartRate?: number
+    availableTime?: string
+    trainingProgress?: Record<
+      string,
+      {
+        minutesElapsed: number
+        status?: 'paused' | 'started' | 'idle' | 'completed'
+      }
+    >
+  }
 }
 
 export const useStore = defineStore('main', {
