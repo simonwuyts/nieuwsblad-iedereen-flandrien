@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { RemovableRef, useStorage } from '@vueuse/core'
-import { getUserInfo } from './lib/selligent'
-
+import { getUserInfo } from '@/lib/selligent'
+import { trainings } from '@/assets/data/trainings'
 interface State {
   userInfo: RemovableRef<{
     email: string

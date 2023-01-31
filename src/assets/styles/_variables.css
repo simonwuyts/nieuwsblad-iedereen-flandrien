@@ -6,6 +6,11 @@
   --color-nb-pink: #ef83f7;
   --color-nb-green: #00ed36;
   --color-nb-blue: #29abe2;
+  --color-zone-5: #fb071a;
+  --color-zone-4: #f75821;
+  --color-zone-3: #f7d611;
+  --color-zone-2: #00ed36;
+  --color-zone-1: #29abe2;
 
   --color-primary: var(--color-nb-dark-blue);
   --color-accent: var(--color-nb-pink);
