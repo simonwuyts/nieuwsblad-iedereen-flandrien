@@ -10,15 +10,16 @@
 </template>
 
 <script setup lang="ts">
-import { trainings } from '@/assets/data/trainings'
-import NTrainingBlocks from '@/components/NTrainingBlocks.vue'
-import NTrainingBlock from '@/components/NTrainingBlock.vue'
-import { formatMinutes, generateTrainingBlocks } from '@/lib/helpers'
-import { TrainingId } from '@/types'
+import { trainings } from "@/assets/data/trainings";
+import NTrainingBlocks from "@/components/NTrainingBlocks.vue";
+import NTrainingBlock from "@/components/NTrainingBlock.vue";
+import { formatMinutes } from "@/lib/helpers";
+import { generateTrainingBlocks } from "@/lib/training-helpers";
+import { TrainingId } from "@/types";
 
 const props = defineProps<{
-  trainingId: TrainingId
-}>()
+  trainingId: TrainingId;
+}>();
 
-const blocks = generateTrainingBlocks(props.trainingId, 190, 'heart')
+const blocks = generateTrainingBlocks(props.trainingId, 190, "heart");
 </script>

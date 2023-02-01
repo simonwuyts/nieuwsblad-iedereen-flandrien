@@ -2,19 +2,19 @@
   <component
     :is="component"
     :class="[
-      'button',
-      { 'button--link': type === 'link', 'button--disabled': disabled },
+      'n-button',
+      { 'n-button--link': type === 'link', 'n-button--disabled': disabled },
     ]"
     :to="to"
     v-bind="$attrs"
   >
-    <div class="button__icon" v-if="$slots.iconLeft">
+    <div class="n-button__icon" v-if="$slots.iconLeft">
       <slot name="iconLeft" />
     </div>
-    <div class="button__label">
+    <div class="n-button__label">
       <slot />
     </div>
-    <div class="button__icon" v-if="$slots.iconRight">
+    <div class="n-button__icon" v-if="$slots.iconRight">
       <slot name="iconRight" />
     </div>
   </component>
@@ -35,25 +35,27 @@ const component = computed(() => {
 </script>
 
 <style scoped>
-.button {
+.n-button {
   align-items: center;
-  background-color: var(--color-button);
+  background-color: var(--color-nb-dark-blue);
   color: #fff;
   cursor: pointer;
-  display: inline-flex;
-  font-size: 16px;
+  display: flex;
+  font-size: 15px;
   font-weight: 500;
+  justify-content: center;
   line-height: 24px;
   padding: 8px 16px;
   text-transform: uppercase;
+  width: 100%;
 }
 
-.button--disabled {
+.n-button--disabled {
   opacity: 0.7;
   pointer-events: none;
 }
 
-.button__icon {
+.n-button__icon {
   display: block;
   flex: none;
   height: 16px;
@@ -64,12 +66,12 @@ const component = computed(() => {
   }
 }
 
-.button__label + .button__icon,
-.button__icon + .button__label {
+.n-button__label + .n-button__icon,
+.n-button__icon + .n-button__label {
   margin-left: 8px;
 }
 
-.button--link {
+.n-button--link {
   background-color: transparent;
   color: var(--color-button);
   font-size: inherit;
@@ -78,8 +80,8 @@ const component = computed(() => {
   padding: 0;
   text-transform: inherit;
 
-  & .button__label + .button__icon,
-  & .button__icon + .button__label {
+  & .n-button__label + .n-button__icon,
+  & .n-button__icon + .n-button__label {
     margin-left: 4px;
   }
 }

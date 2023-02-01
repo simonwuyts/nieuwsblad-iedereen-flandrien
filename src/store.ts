@@ -1,31 +1,22 @@
 import { defineStore } from 'pinia'
 import { RemovableRef, useStorage } from '@vueuse/core'
 import { getUserInfo } from '@/lib/selligent'
-import { trainings } from '@/assets/data/trainings'
+import { FirestoreUserData } from '@/types'
+
 interface State {
-  userInfo: RemovableRef<{
+  localUserData: RemovableRef<{
     email: string
     firstName: string
     lastName: string
     level: string
     sex: string
   }>
-  firebaseUserData?: {
-    maxHeartRate?: number
-    availableTime?: string
-    trainingProgress?: Record<
-      string,
-      {
-        minutesElapsed: number
-        status?: 'paused' | 'started' | 'idle' | 'completed'
-      }
-    >
-  }
+  firestoreUserData?: FirestoreUserData
 }
 
 export const useStore = defineStore('main', {
   state: (): State => ({
-    userInfo: useStorage('userInfo', {
+    localUserData: useStorage('userInfo', {
       email: '',
       firstName: '',
       lastName: '',
@@ -38,7 +29,7 @@ export const useStore = defineStore('main', {
     async fetchUserInfo(email: string) {
       const result = await getUserInfo(email)
 
-      this.userInfo = {
+      this.localUserData = {
         email: result.MAIL,
         firstName: result.VOORNAAM,
         lastName: result.NAAM,

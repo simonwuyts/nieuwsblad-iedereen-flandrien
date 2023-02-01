@@ -3,7 +3,7 @@
     @input="updateValue"
     :value="modelValue"
     v-bind="$attrs"
-    class="textfield"
+    class="n-textfield"
   />
 </template>
 
@@ -22,14 +22,14 @@ const updateValue = (event: Event) => {
 </script>
 
 <style lang="scss" scoped>
-.textfield {
+.n-textfield {
   background: #fff;
   border: 1px solid rgba(0, 0, 0, 0.2);
   display: block;
   font: inherit;
   font-size: 16px;
   line-height: 24px;
-  padding: 8px 12px;
+  padding: 7px 11px;
   width: 100%;
 
   &:focus-visible {

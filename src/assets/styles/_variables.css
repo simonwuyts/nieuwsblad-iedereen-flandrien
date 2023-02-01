@@ -11,6 +11,7 @@
   --color-zone-3: #f7d611;
   --color-zone-2: #00ed36;
   --color-zone-1: #29abe2;
+  --color-zone-0: rgba(0, 0, 104, 10%);
 
   --color-primary: var(--color-nb-dark-blue);
   --color-accent: var(--color-nb-pink);

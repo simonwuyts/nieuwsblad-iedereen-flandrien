@@ -56,3 +56,21 @@ export interface Zone {
   minFTP: number
   maxFTP: number
 }
+
+export interface FirestoreUserData {
+  zoneType: 'heart' | 'ftp'
+  maxHeartRate?: number
+  maxFTP?: number
+  availableTime?: 'short' | 'long'
+  trainings?: Record<
+    string,
+    {
+      lastStartedAt?: Date
+      segments?: {
+        start: Date
+        stop: Date
+      }[]
+      status?: 'paused' | 'started' | 'idle' | 'completed'
+    }
+  >
+}

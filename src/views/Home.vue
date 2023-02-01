@@ -3,11 +3,13 @@
   <NInput label="E-mailadres">
     <NTextfield type="email" v-model="value" name="email"></NTextfield>
   </NInput>
+  <NButton>Aanmelden</NButton>
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue'
 import NTextfield from '@/components/NTextfield.vue'
 import NInput from '@/components/NInput.vue'
+import NButton from '@/components/NButton.vue'
 const value = ref('test')
 </script>
