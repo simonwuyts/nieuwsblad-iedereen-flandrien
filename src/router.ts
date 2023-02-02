@@ -1,5 +1,5 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
 import { useStore } from '@/store'
+import { createRouter, createWebHashHistory } from 'vue-router'
 
 export const router = createRouter({
   history: createWebHashHistory(),
@@ -16,10 +16,15 @@ export const router = createRouter({
       component: () => import('./views/TrainingOverview.vue'),
     },
     {
-      path: '/training/:trainingId',
+      path: '/training/:trainingId/:subtitle',
       name: 'trainingDetails',
       component: () => import('./views/TrainingDetail.vue'),
       props: true,
+    },
+    {
+      path: '/reset',
+      name: 'reset',
+      component: () => import('./views/Reset.vue'),
     },
   ],
 })

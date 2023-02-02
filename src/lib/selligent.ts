@@ -24,10 +24,11 @@ export async function getCities(zipCodeOrCity: string) {
 
 export interface SelligentUserInfo {
   MAIL: string
-  NIVEAU: string
-  GESLACHT: string
+  NIVEAU: 'BEGINNER' | 'GEVORDERD'
+  GESLACHT: 'MALE' | 'FEMALE'
   VOORNAAM: string
   NAAM: string
+  LEEFTIJD: string
 }
 
 export async function getUserInfo(email: string): Promise<SelligentUserInfo> {

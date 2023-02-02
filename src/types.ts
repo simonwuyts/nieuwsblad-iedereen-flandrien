@@ -1,3 +1,5 @@
+import { Timestamp } from 'firebase/firestore'
+
 export type TrainingId = `${number}.${number}`
 
 export interface Training {
@@ -19,16 +21,17 @@ export interface Training {
 
 export type Trainings = Record<TrainingId, Training>
 
-export interface TrainingLine {
-  training1?: TrainingId
-  training2?: TrainingId
-  training3?: TrainingId
-  training4?: TrainingId
-  training5?: TrainingId
-  bonus1?: TrainingId
-  bonus2?: TrainingId
-  bonus3?: TrainingId
-}
+export type TrainingKey =
+  | 'training1'
+  | 'training2'
+  | 'training3'
+  | 'training4'
+  | 'training5'
+  | 'bonus1'
+  | 'bonus2'
+  | 'bonus3'
+
+export type TrainingLine = Partial<Record<TrainingKey, TrainingId>>
 
 export interface TrainingLines {
   male: {
@@ -58,17 +61,18 @@ export interface Zone {
 }
 
 export interface FirestoreUserData {
-  zoneType: 'heart' | 'ftp'
+  zoneType?: 'heart' | 'ftp'
   maxHeartRate?: number
   maxFTP?: number
-  availableTime?: 'short' | 'long'
+  extraTime?: boolean
+  startDate?: Timestamp
   trainings?: Record<
     string,
     {
       lastStartedAt?: Date
       segments?: {
-        start: Date
-        stop: Date
+        start: Timestamp
+        stop: Timestamp
       }[]
       status?: 'paused' | 'started' | 'idle' | 'completed'
     }

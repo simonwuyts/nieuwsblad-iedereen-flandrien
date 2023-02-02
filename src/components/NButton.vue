@@ -3,29 +3,30 @@
     :is="component"
     :class="[
       'n-button',
-      { 'n-button--link': type === 'link', 'n-button--disabled': disabled },
+      `n-button--${type}`,
+      { 'n-button--disabled': disabled, 'n-button--icon': !$slots.default },
     ]"
     :to="to"
     v-bind="$attrs"
   >
-    <div class="n-button__icon" v-if="$slots.iconLeft">
-      <slot name="iconLeft" />
-    </div>
-    <div class="n-button__label">
+    <n-icon v-if="icon" :name="icon" class="n-button__icon" />
+    <div v-if="$slots.default" class="n-button__label">
       <slot />
     </div>
-    <div class="n-button__icon" v-if="$slots.iconRight">
-      <slot name="iconRight" />
-    </div>
+    <n-icon v-if="iconRight" :name="iconRight" class="n-button__icon" />
   </component>
 </template>
 
 <script lang="ts" setup>
+import NIcon from '@/components/NIcon.vue'
+import { RouteLocationRaw } from 'vue-router'
 import { computed } from 'vue'
 
 const props = defineProps<{
   type?: string
-  to?: string
+  to?: RouteLocationRaw
+  icon?: string
+  iconRight?: string
   disabled?: boolean
 }>()
 
@@ -44,26 +45,30 @@ const component = computed(() => {
   font-size: 15px;
   font-weight: 500;
   justify-content: center;
-  line-height: 24px;
-  padding: 8px 16px;
+  line-height: 20px;
+  padding: 10px 16px;
   text-transform: uppercase;
+  user-select: none;
   width: 100%;
 }
 
+.n-button--subtle {
+  background-color: transparent;
+  color: var(--color-nb-dark-blue);
+}
+
+.n-button--icon {
+  padding: 10px;
+}
+
 .n-button--disabled {
-  opacity: 0.7;
+  opacity: 0.5;
   pointer-events: none;
 }
 
 .n-button__icon {
-  display: block;
   flex: none;
-  height: 16px;
-  width: 16px;
-
-  & svg {
-    display: block;
-  }
+  font-size: 20px;
 }
 
 .n-button__label + .n-button__icon,

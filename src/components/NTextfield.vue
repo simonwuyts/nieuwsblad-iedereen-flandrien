@@ -33,7 +33,7 @@ const updateValue = (event: Event) => {
   width: 100%;
 
   &:focus-visible {
-    border-color: var(--color-accent);
+    border-color: var(--color-nb-dark-blue);
   }
 
   &::placeholder {

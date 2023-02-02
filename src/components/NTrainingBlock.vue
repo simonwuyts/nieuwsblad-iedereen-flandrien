@@ -32,7 +32,7 @@ const props = defineProps<{
   color: var(--color-nb-dark-blue);
   display: flex;
   justify-content: space-between;
-  padding: 0.8rem;
+  padding: 8px;
 }
 
 .n-training-block--zone-1 {
@@ -65,7 +65,7 @@ const props = defineProps<{
 }
 
 .n-training-block__range {
-  margin-left: 0.4rem;
+  margin-left: 4px;
   opacity: 0.7;
 }
 </style>

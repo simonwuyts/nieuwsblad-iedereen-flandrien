@@ -1,7 +1,7 @@
-import {Zone} from "@/types";
-import {zones} from "@/assets/data/zones";
-import {trainings} from '@/assets/data/trainings'
-import {TrainingBlock, TrainingId} from '@/types'
+import { lines } from '@/assets/data/lines'
+import { trainings } from '@/assets/data/trainings'
+import { zones } from '@/assets/data/zones'
+import { TrainingBlock, TrainingId, Zone } from '@/types'
 
 export function getTrainingZone(
   min: number,
@@ -17,6 +17,30 @@ export function getTrainingZone(
       return zoneMin <= average && average <= zoneMax
     }) || zones[0]
   )
+}
+
+export function getCurrentTrainingLine(
+  sex: 'MALE' | 'FEMALE',
+  level: 'BEGINNER' | 'GEVORDERD',
+  weekNumber: number
+) {
+  const sexKey = sex === 'MALE' ? 'male' : 'female'
+  const levelKey = level === 'BEGINNER' ? 'beginner' : 'advanced'
+
+  return lines[sexKey][levelKey][weekNumber - 1]
+}
+
+export function getTrainingLineWeeks(
+  sex: 'MALE' | 'FEMALE',
+  level: 'BEGINNER' | 'GEVORDERD'
+) {
+  const sexKey = sex === 'MALE' ? 'male' : 'female'
+  const levelKey = level === 'BEGINNER' ? 'beginner' : 'advanced'
+  return lines[sexKey][levelKey].length
+}
+
+export function getTraining(trainingId: TrainingId) {
+  return trainings[trainingId]
 }
 
 export function generateTrainingBlocks(

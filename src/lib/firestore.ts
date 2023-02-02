@@ -1,8 +1,10 @@
+import { FirestoreUserData } from '@/types'
 import { initializeApp } from 'firebase/app'
 import {
   getFirestore,
   collection,
   doc,
+  getDoc,
   getDocs,
   setDoc,
 } from 'firebase/firestore'
@@ -33,7 +35,12 @@ export async function getFireStoreDocument(
   collectionId: string,
   docId: string
 ) {
-  return {}
+  const docRef = doc(db, collectionId, docId)
+  const docSnapshot = await getDoc(docRef)
+  if (docSnapshot.exists()) {
+    return docSnapshot.data() as FirestoreUserData
+  }
+  return undefined
 }
 
 export async function setFireStoreDocument(

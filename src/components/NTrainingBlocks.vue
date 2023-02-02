@@ -8,7 +8,7 @@
 .n-training-blocks {
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
-  padding: 4rem;
+  gap: 8px;
+  padding: 40px;
 }
 </style>
