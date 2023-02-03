@@ -1,8 +1,20 @@
 <template>
   <div class="n-partners">
-    <img class="n-partner" src="/logo-bikerepublic.png" alt="Bike Republic" />
-    <img class="n-partner" src="/logo-stk.png" alt="Stichting Tegen Kanker" />
-    <img class="n-partner" src="/logo-hipro.png" alt="HiPRO" />
+    <img
+      class="n-partner"
+      src="https://static.nieuwsblad.be/Assets/Images_Upload/2023/02/03/logo-bikerepublic.png"
+      alt="Bike Republic"
+    />
+    <img
+      class="n-partner"
+      src="https://static.nieuwsblad.be/Assets/Images_Upload/2023/02/03/logo-stk.png"
+      alt="Stichting Tegen Kanker"
+    />
+    <img
+      class="n-partner"
+      src="https://static.nieuwsblad.be/Assets/Images_Upload/2023/02/03/logo-hipro.png"
+      alt="HiPRO"
+    />
   </div>
 </template>
 
