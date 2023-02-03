@@ -11,6 +11,11 @@ export const router = createRouter({
       component: () => import('./views/Home.vue'),
     },
     {
+      path: '/onboarding',
+      name: 'onboarding',
+      component: () => import('./views/Onboarding.vue'),
+    },
+    {
       path: '/training',
       name: 'trainingOverview',
       component: () => import('./views/TrainingOverview.vue'),

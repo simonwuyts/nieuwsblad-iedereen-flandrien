@@ -1,4 +1,5 @@
 <template>
+  <NHeader />
   <NTitleBar :title="`Week ${store.currentWeekNumber}`">
     <template #left>
       <n-button
@@ -17,7 +18,10 @@
       />
     </template>
   </NTitleBar>
-  <NContent>
+  <NContent :is-flexible="false">
+    <p>
+      Hier vind je iedere zondag je persoonlijke trainingsschema’s. Veel succes!
+    </p>
     <NTrainingLinks>
       <NTrainingLink
         v-if="store.currentWeekTrainings['training1']"
@@ -75,11 +79,14 @@
       </NTrainingLinks>
     </template>
   </NContent>
+  <NPartners />
 </template>
 
 <script setup lang="ts">
 import NButton from '@/components/NButton.vue'
 import NContent from '@/components/NContent.vue'
+import NHeader from '@/components/NHeader.vue'
+import NPartners from '@/components/NPartners.vue'
 import NTitleBar from '@/components/NTitleBar.vue'
 import NTrainingLink from '@/components/NTrainingLink.vue'
 import NTrainingLinks from '@/components/NTrainingLinks.vue'
@@ -92,7 +99,9 @@ const store = useStore()
 
 function isCompleted(key: TrainingKey) {
   const trainings = store.firestoreUserData?.trainings
-  const trainingKey = convertTrainingIdToKey(store.currentWeekTrainings[key])
+  const trainingKey = convertTrainingIdToKey(
+    store.currentWeekTrainings[key] || '999.999'
+  )
 
   if (trainings) {
     const training = trainings[trainingKey]
@@ -104,6 +113,7 @@ function isCompleted(key: TrainingKey) {
 
 onMounted(async () => {
   await store.fetchFirestoreUserData()
+  store.getWeekNumber()
 })
 
 function nextWeek() {
@@ -128,8 +138,8 @@ function previousWeek() {
   font-weight: bold;
   letter-spacing: 0.03em;
   line-height: 24px;
-  margin: 32px -24px;
-  padding: 12px 24px;
+  margin: 32px -16px;
+  padding: 12px 16px;
   text-transform: uppercase;
 }
 </style>

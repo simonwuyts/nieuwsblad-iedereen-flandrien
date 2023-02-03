@@ -1,7 +1,10 @@
 <template>
   <div
     class="n-training-block"
-    :class="[`n-training-block--zone-${block.zoneNumber}`]"
+    :class="[
+      `n-training-block--zone-${block.zoneNumber}`,
+      { 'n-training-block--active': active },
+    ]"
   >
     <div class="n-training-block__left">
       <span class="n-training-block__label">{{ block.label }}</span>
@@ -23,6 +26,7 @@ import { TrainingBlock } from '@/types'
 
 const props = defineProps<{
   block: TrainingBlock
+  active?: boolean
 }>()
 </script>
 
@@ -32,7 +36,12 @@ const props = defineProps<{
   color: var(--color-nb-dark-blue);
   display: flex;
   justify-content: space-between;
+  opacity: 0.5;
   padding: 8px;
+}
+
+.n-training-block--active {
+  opacity: 1;
 }
 
 .n-training-block--zone-1 {

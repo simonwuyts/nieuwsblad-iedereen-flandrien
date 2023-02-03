@@ -1,15 +1,42 @@
 <template>
-  <p>Geef je e-mailadres in om te beginnen.</p>
-  <NInput label="E-mailadres">
-    <NTextfield type="email" v-model="email" name="email"></NTextfield>
-  </NInput>
-  <NButton @click="login">Aanmelden</NButton>
+  <NHeader />
+  <NTitleBar title="Iedereen Flandrien" />
+  <NContent>
+    <p>Welkom bij Iedereen Flandrien.</p>
+    <p>
+      Hier vind je twaalf weken lang je persoonlijke trainingsschema’s en
+      exclusieve voedingstips van onze experts.
+      <strong>
+        Vul het e-mailadres in waarmee je bent ingeschreven en start meteen.
+      </strong>
+      Nog niet ingeschreven?
+      <a href="https://www.nieuwsblad.be/iedereenflandrien"
+        >Schrijf je nog snel in.</a
+      >
+    </p>
+    <NForm>
+      <NInput label="E-mailadres">
+        <NTextfield type="email" v-model="email" name="email" />
+      </NInput>
+      <NInput>
+        <NButton icon-right="chevron_right" @click="login">
+          Ik ben er klaar voor
+        </NButton>
+      </NInput>
+    </NForm>
+  </NContent>
+  <NPartners />
 </template>
 
 <script lang="ts" setup>
 import NButton from '@/components/NButton.vue'
+import NContent from '@/components/NContent.vue'
+import NForm from '@/components/NForm.vue'
+import NHeader from '@/components/NHeader.vue'
 import NInput from '@/components/NInput.vue'
+import NPartners from '@/components/NPartners.vue'
 import NTextfield from '@/components/NTextfield.vue'
+import NTitleBar from '@/components/NTitleBar.vue'
 import { useStore } from '@/store'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
@@ -21,6 +48,8 @@ const email = ref('')
 
 async function login() {
   await store.fetchUserInfo(email.value)
-  router.push({ name: 'trainingOverview' })
+  await store.fetchFirestoreUserData()
+  await store.saveFirestoreStartDate()
+  router.push({ name: 'onboarding' })
 }
 </script>

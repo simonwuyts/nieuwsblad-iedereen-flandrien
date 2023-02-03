@@ -1,6 +1,20 @@
 import { Trainings } from '@/types'
 
 export const trainings: Trainings = {
+  '111.111': {
+    name: 'Testtraining',
+    description: 'Dit is een snelle testtraining.',
+    time: 5.6,
+    series: 4,
+    repeats: 5,
+    interval: 0.2,
+    rest: 0.1,
+    minIntensity: 65,
+    maxIntensity: 75,
+    carbs: 30,
+    totalCarbs: 45,
+    fluidUnits: 1.5,
+  },
   '1.1': {
     name: 'Basisconditie',
     time: 90,
@@ -493,7 +507,7 @@ export const trainings: Trainings = {
     fluidUnits: 3,
   },
   '8.1': {
-    name: 'Krachtopbouw indoor V',
+    name: 'Krachtopbouw',
     time: 60,
     repeats: 4,
     interval: 2,
@@ -505,7 +519,7 @@ export const trainings: Trainings = {
     fluidUnits: 1,
   },
   '8.2': {
-    name: 'Krachtopbouw indoor V',
+    name: 'Krachtopbouw',
     time: 60,
     repeats: 6,
     interval: 2,
@@ -517,7 +531,7 @@ export const trainings: Trainings = {
     fluidUnits: 1,
   },
   '8.3': {
-    name: 'Krachtopbouw indoor V',
+    name: 'Krachtopbouw',
     time: 60,
     repeats: 8,
     interval: 2,
@@ -530,7 +544,7 @@ export const trainings: Trainings = {
     fluidUnits: 1,
   },
   '8.4': {
-    name: 'Krachtopbouw indoor V',
+    name: 'Krachtopbouw',
     time: 60,
     repeats: 4,
     interval: 4,
@@ -543,7 +557,7 @@ export const trainings: Trainings = {
     fluidUnits: 1,
   },
   '8.5': {
-    name: 'Krachtopbouw indoor V',
+    name: 'Krachtopbouw',
     time: 60,
     repeats: 6,
     interval: 4,
@@ -556,7 +570,7 @@ export const trainings: Trainings = {
     fluidUnits: 1,
   },
   '8.6': {
-    name: 'Krachtopbouw indoor V',
+    name: 'Krachtopbouw',
     time: 60,
     repeats: 8,
     interval: 4,
@@ -569,7 +583,7 @@ export const trainings: Trainings = {
     fluidUnits: 1,
   },
   '9.1': {
-    name: 'Weerstand V',
+    name: 'Weerstand',
     time: 120,
     series: 3,
     seriesRest: 10,
@@ -584,7 +598,7 @@ export const trainings: Trainings = {
     fluidUnits: 2,
   },
   '9.2': {
-    name: 'Weerstand V',
+    name: 'Weerstand',
     time: 120,
     series: 4,
     seriesRest: 10,
@@ -599,7 +613,7 @@ export const trainings: Trainings = {
     fluidUnits: 2,
   },
   '9.3': {
-    name: 'Weerstand V',
+    name: 'Weerstand',
     time: 150,
     series: 4,
     seriesRest: 5,
@@ -614,7 +628,7 @@ export const trainings: Trainings = {
     fluidUnits: 2,
   },
   '9.4': {
-    name: 'Weerstand V',
+    name: 'Weerstand',
     time: 150,
     series: 5,
     seriesRest: 5,
@@ -629,7 +643,7 @@ export const trainings: Trainings = {
     fluidUnits: 2,
   },
   '9.5': {
-    name: 'Weerstand V',
+    name: 'Weerstand',
     time: 180,
     series: 5,
     seriesRest: 5,
@@ -644,7 +658,7 @@ export const trainings: Trainings = {
     fluidUnits: 3,
   },
   '9.6': {
-    name: 'Weerstand V',
+    name: 'Weerstand',
     time: 180,
     series: 6,
     seriesRest: 5,
@@ -659,7 +673,7 @@ export const trainings: Trainings = {
     fluidUnits: 3,
   },
   '10.1': {
-    name: 'Drempeltraining V',
+    name: 'Drempeltraining',
     time: 120,
     repeats: 3,
     interval: 5,
@@ -672,7 +686,7 @@ export const trainings: Trainings = {
     fluidUnits: 2,
   },
   '10.2': {
-    name: 'Drempeltraining V',
+    name: 'Drempeltraining',
     time: 120,
     repeats: 4,
     interval: 5,
@@ -685,7 +699,7 @@ export const trainings: Trainings = {
     fluidUnits: 2,
   },
   '10.3': {
-    name: 'Drempeltraining V',
+    name: 'Drempeltraining',
     time: 150,
     repeats: 3,
     interval: 6,
@@ -698,7 +712,7 @@ export const trainings: Trainings = {
     fluidUnits: 2,
   },
   '10.4': {
-    name: 'Drempeltraining V',
+    name: 'Drempeltraining',
     time: 150,
     repeats: 4,
     interval: 6,

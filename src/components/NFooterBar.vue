@@ -7,6 +7,6 @@
 <style scoped>
 .n-footer-bar {
   flex: none;
-  padding: 24px;
+  padding: 0 16px 16px;
 }
 </style>

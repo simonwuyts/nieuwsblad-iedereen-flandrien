@@ -9,11 +9,11 @@
 
 <script setup lang="ts">
 defineProps<{
-  modelValue: string
+  modelValue: string | number
 }>()
 
 const emit = defineEmits<{
-  (e: 'update:modelValue', value: string): void
+  (e: 'update:modelValue', value: string | number): void
 }>()
 
 const updateValue = (event: Event) => {

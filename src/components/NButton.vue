@@ -4,7 +4,11 @@
     :class="[
       'n-button',
       `n-button--${type}`,
-      { 'n-button--disabled': disabled, 'n-button--icon': !$slots.default },
+      {
+        'n-button--disabled': disabled,
+        'n-button--flexible': flexible,
+        'n-button--icon': !$slots.default,
+      },
     ]"
     :to="to"
     v-bind="$attrs"
@@ -19,16 +23,22 @@
 
 <script lang="ts" setup>
 import NIcon from '@/components/NIcon.vue'
-import { RouteLocationRaw } from 'vue-router'
 import { computed } from 'vue'
+import { RouteLocationRaw } from 'vue-router'
 
-const props = defineProps<{
-  type?: string
-  to?: RouteLocationRaw
-  icon?: string
-  iconRight?: string
-  disabled?: boolean
-}>()
+const props = withDefaults(
+  defineProps<{
+    type?: string
+    to?: RouteLocationRaw
+    icon?: string
+    iconRight?: string
+    disabled?: boolean
+    flexible?: boolean
+  }>(),
+  {
+    flexible: true,
+  }
+)
 
 const component = computed(() => {
   return props.to ? 'router-link' : 'button'
@@ -42,6 +52,7 @@ const component = computed(() => {
   color: #fff;
   cursor: pointer;
   display: flex;
+  flex: none;
   font-size: 15px;
   font-weight: 500;
   justify-content: center;
@@ -49,6 +60,10 @@ const component = computed(() => {
   padding: 10px 16px;
   text-transform: uppercase;
   user-select: none;
+}
+
+.n-button--flexible {
+  flex: 1 1 auto;
   width: 100%;
 }
 
@@ -57,8 +72,15 @@ const component = computed(() => {
   color: var(--color-nb-dark-blue);
 }
 
+.n-button--success {
+  background-color: var(--color-nb-green);
+  color: var(--color-nb-dark-blue);
+}
+
 .n-button--icon {
+  flex: none;
   padding: 10px;
+  width: 40px;
 }
 
 .n-button--disabled {

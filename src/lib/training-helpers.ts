@@ -1,7 +1,15 @@
 import { lines } from '@/assets/data/lines'
 import { trainings } from '@/assets/data/trainings'
 import { zones } from '@/assets/data/zones'
-import { TrainingBlock, TrainingId, Zone } from '@/types'
+import {
+  Segment,
+  TrainingBlock,
+  TrainingId,
+  TrainingStatus,
+  Zone,
+} from '@/types'
+import { differenceInSeconds } from 'date-fns'
+import { Timestamp } from 'firebase/firestore'
 
 export function getTrainingZone(
   min: number,
@@ -114,4 +122,29 @@ export function generateTrainingBlocks(
   }
 
   return blocks
+}
+
+export function getSegmentsLengthInSeconds(segments: Segment[]) {
+  return segments.reduce((previous, currentSegment, index) => {
+    return (
+      previous +
+      differenceInSeconds(
+        currentSegment.stop.toDate(),
+        currentSegment.start.toDate()
+      )
+    )
+  }, 0)
+}
+
+export function getElapsedSeconds(
+  segments: Segment[],
+  lastStarted: Timestamp,
+  status: TrainingStatus
+) {
+  let result = getSegmentsLengthInSeconds(segments)
+  if (status === 'started') {
+    const difference = differenceInSeconds(new Date(), lastStarted.toDate())
+    result = result + difference
+  }
+  return result
 }

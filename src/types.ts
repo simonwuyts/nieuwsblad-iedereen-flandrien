@@ -5,6 +5,7 @@ export type TrainingId = `${number}.${number}`
 export interface Training {
   name: string
   time: number
+  description?: string
   series?: number
   seriesRest?: number
   repeats?: number
@@ -60,21 +61,25 @@ export interface Zone {
   maxFTP: number
 }
 
+export interface Segment {
+  start: Timestamp
+  stop: Timestamp
+}
+
+export type TrainingStatus = 'paused' | 'started' | 'idle' | 'completed'
+
 export interface FirestoreUserData {
-  zoneType?: 'heart' | 'ftp'
-  maxHeartRate?: number
-  maxFTP?: number
-  extraTime?: boolean
-  startDate?: Timestamp
-  trainings?: Record<
+  zoneType: 'heart' | 'ftp'
+  maxHeartRate: number
+  maxFTP: number
+  extraTime: boolean
+  startDate: Timestamp
+  trainings: Record<
     string,
     {
-      lastStartedAt?: Date
-      segments?: {
-        start: Timestamp
-        stop: Timestamp
-      }[]
-      status?: 'paused' | 'started' | 'idle' | 'completed'
+      lastStartedAt: Timestamp
+      segments?: Segment[]
+      status: TrainingStatus
     }
   >
 }

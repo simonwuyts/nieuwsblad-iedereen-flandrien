@@ -30,7 +30,8 @@ defineProps<{
   display: grid;
   flex: none;
   grid-template-columns: auto 1fr auto;
-  padding: 16px;
+  min-height: 64px;
+  padding: 8px 16px;
 }
 
 .n-title-bar__left {
@@ -64,7 +65,10 @@ defineProps<{
 }
 
 .n-title-bar__title {
+  color: var(--color-nb-dark-blue);
+  font-family: var(--font-family-title);
   font-size: 24px;
+  font-weight: bold;
   line-height: 28px;
   margin: 0;
 }
