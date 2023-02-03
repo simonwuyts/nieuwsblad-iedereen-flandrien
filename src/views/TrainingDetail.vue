@@ -52,7 +52,7 @@
         icon="pause"
         @click="pause"
       >
-        Pause
+        Pauzeer
       </NButton>
       <NButton
         v-if="currentStatus !== 'completed'"
@@ -61,7 +61,7 @@
         :flexible="false"
         @click="complete"
       >
-        Afgewerkt
+        Klaar
       </NButton>
       <NButton
         v-if="currentStatus === 'completed'"
