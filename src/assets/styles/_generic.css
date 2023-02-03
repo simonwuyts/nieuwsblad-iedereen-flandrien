@@ -16,3 +16,13 @@ body,
   flex-direction: column;
   overflow-y: auto;
 }
+
+@media screen and (max-width: 600px) {
+  #app {
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+  }
+}
