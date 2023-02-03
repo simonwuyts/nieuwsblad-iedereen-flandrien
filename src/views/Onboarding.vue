@@ -24,7 +24,7 @@
       <NInput label="Meeteenheid">
         <NSelect v-model="zoneType">
           <option value="heart">Maximale harstlag</option>
-          <option value="ftp">Maximale FTP</option>
+          <option value="ftp">FTP</option>
         </NSelect>
       </NInput>
       <NInput
