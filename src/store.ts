@@ -43,7 +43,6 @@ const initialFirestoreUserData: FirestoreUserData = {
   maxHeartRate: 0,
   maxFTP: 0,
   extraTime: false,
-  startDate: Timestamp.fromDate(new Date()),
   trainings: {},
 }
 
@@ -85,9 +84,13 @@ export const useStore = defineStore('main', {
 
   actions: {
     getWeekNumber() {
-      this.currentWeekNumber = getWeekNumber(
-        this.firestoreUserData.startDate.toDate()
-      )
+      if (this.firestoreUserData.startDate) {
+        this.currentWeekNumber = getWeekNumber(
+          this.firestoreUserData.startDate.toDate()
+        )
+      } else {
+        return 1
+      }
     },
 
     async fetchUserInfo(email: string) {
@@ -117,13 +120,15 @@ export const useStore = defineStore('main', {
 
     async saveFirestoreStartDate() {
       if (this.localUserData.email !== '') {
-        await setFireStoreDocument(
-          'users',
-          convertEmailToKey(this.localUserData.email),
-          {
-            startDate: new Date(),
-          }
-        )
+        if (!this.firestoreUserData.startDate) {
+          await setFireStoreDocument(
+            'users',
+            convertEmailToKey(this.localUserData.email),
+            {
+              startDate: new Date(),
+            }
+          )
+        }
       }
     },
 

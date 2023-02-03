@@ -73,7 +73,7 @@ export interface FirestoreUserData {
   maxHeartRate: number
   maxFTP: number
   extraTime: boolean
-  startDate: Timestamp
+  startDate?: Timestamp
   trainings: Record<
     string,
     {
