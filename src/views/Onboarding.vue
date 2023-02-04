@@ -8,13 +8,13 @@
     </p>
     <NForm>
       <NInput label="Trainingstijd per week">
-        <NSelect v-model="extraTime">
-          <option :value="false">
+        <NSelect v-model="extraTimeValue">
+          <option value="no">
             {{
               store.localUserData.level === 'BEGINNER' ? '3-5 uur' : '4-8 uur'
             }}
           </option>
-          <option :value="true">
+          <option value="yes">
             {{
               store.localUserData.level === 'BEGINNER' ? '5-8 uur' : '8-12 uur'
             }}
@@ -56,13 +56,16 @@ import NSelect from '@/components/NSelect.vue'
 import NTextfield from '@/components/NTextfield.vue'
 import NTitleBar from '@/components/NTitleBar.vue'
 import { useStore } from '@/store'
-import { ref, unref } from 'vue'
+import { computed, ref, unref } from 'vue'
 import { useRouter } from 'vue-router'
 
 const store = useStore()
 const router = useRouter()
 
-const extraTime = ref(unref(store.firestoreUserData?.extraTime) || false)
+const extraTimeValue = ref(store.firestoreUserData?.extraTime || 'no')
+const extraTime = computed(() => {
+  return extraTimeValue.value === 'yes'
+})
 const zoneType = ref(unref(store.firestoreUserData?.zoneType) || 'heart')
 const maxHeartRate = ref(
   unref(store.firestoreUserData?.maxHeartRate) ||

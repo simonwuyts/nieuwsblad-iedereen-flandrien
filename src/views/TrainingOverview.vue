@@ -55,7 +55,7 @@
         subtitle="Training 5"
       />
     </NTrainingLinks>
-    <template v-if="store.firestoreUserData?.extraTime">
+    <template v-if="store.firestoreUserData.extraTime">
       <h2 class="n-divider-title">Bonustrainingen</h2>
       <NTrainingLinks>
         <NTrainingLink
