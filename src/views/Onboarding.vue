@@ -55,14 +55,14 @@ import NPartners from '@/components/NPartners.vue'
 import NSelect from '@/components/NSelect.vue'
 import NTextfield from '@/components/NTextfield.vue'
 import NTitleBar from '@/components/NTitleBar.vue'
-import {useStore} from '@/store'
-import {computed, ref, unref} from 'vue'
-import {useRouter} from 'vue-router'
+import { useStore } from '@/store'
+import { computed, ref, unref } from 'vue'
+import { useRouter } from 'vue-router'
 
 const store = useStore()
 const router = useRouter()
 
-const extraTimeValue = ref(store.firestoreUserData?.extraTime || 'no')
+const extraTimeValue = ref(store.firestoreUserData?.extraTime ? 'yes' : 'no')
 const extraTime = computed(() => {
   return extraTimeValue.value === 'yes'
 })
@@ -79,7 +79,7 @@ async function save() {
     extraTime.value,
     zoneType.value,
     maxHeartRate.value,
-    maxFTP.value,
+    maxFTP.value
   )
   router.push({ name: 'trainingOverview' })
 }

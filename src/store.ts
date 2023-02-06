@@ -1,11 +1,18 @@
-import {getFireStoreDocument, setFireStoreDocument} from '@/lib/firestore'
-import {convertEmailToKey, convertTrainingIdToKey, getWeekNumber,} from '@/lib/helpers'
-import {getUserInfo} from '@/lib/selligent'
-import {getCurrentTrainingLine, getTrainingLineWeeks,} from '@/lib/training-helpers'
-import {FirestoreUserData, TrainingId, TrainingLine} from '@/types'
-import {RemovableRef, useStorage} from '@vueuse/core'
-import {Timestamp} from 'firebase/firestore'
-import {defineStore} from 'pinia'
+import { getFireStoreDocument, setFireStoreDocument } from '@/lib/firestore'
+import {
+  convertEmailToKey,
+  convertTrainingIdToKey,
+  getWeekNumber,
+} from '@/lib/helpers'
+import { getUserInfo } from '@/lib/selligent'
+import {
+  getCurrentTrainingLine,
+  getTrainingLineWeeks,
+} from '@/lib/training-helpers'
+import { FirestoreUserData, TrainingId, TrainingLine } from '@/types'
+import { RemovableRef, useStorage } from '@vueuse/core'
+import { Timestamp } from 'firebase/firestore'
+import { defineStore } from 'pinia'
 
 interface LocalUserData {
   email: string
@@ -95,7 +102,7 @@ export const useStore = defineStore('main', {
         lastName: result.NAAM,
         level: result.NIVEAU,
         sex: result.GESLACHT,
-        age: parseInt(result.LEEFTIJD) || 30,
+        age: parseInt(result.LEEFTIJD),
       }
 
       await this.fetchFirestoreUserData()
@@ -140,7 +147,7 @@ export const useStore = defineStore('main', {
             zoneType,
             maxHeartRate,
             maxFTP,
-            trainings: this.firestoreUserData.trainings || {}
+            trainings: this.firestoreUserData.trainings || {},
           }
         )
       }
