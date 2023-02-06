@@ -12,7 +12,7 @@
     <p v-if="training.description">{{ training.description }}</p>
     <NTrainingBlocks>
       <NTrainingTimeline
-        :percentage="currentPercentage"
+        :active-index="activeIndex"
         :active="currentStatus === 'started'"
       />
       <NTrainingBlock
@@ -127,13 +127,9 @@ const blocks = computed(() => {
   )
 })
 
-const currentPercentage = computed(() => {
-  return elapsedSeconds.value / (training.time * 60)
-})
-
 const activeIndex = computed(() => {
   const totalBlocks = blocks.value.length
-  return Math.round(currentPercentage.value * totalBlocks)
+  return Math.round((elapsedSeconds.value / (training.time * 60)) * totalBlocks)
 })
 
 const currentStatus = computed(() => {

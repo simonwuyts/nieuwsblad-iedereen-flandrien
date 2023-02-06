@@ -5,7 +5,7 @@
       :class="{
         'n-training-timeline__indicator--active': active,
       }"
-      :style="{ top: `min(${percentage * 100}%, calc(100% - 32px))` }"
+      :style="{ top: `${topPosition}px` }"
     >
       <NIcon name="directions_bike" class="n-training-timeline__icon" />
     </div>
@@ -15,16 +15,25 @@
 
 <script setup lang="ts">
 import NIcon from '@/components/NIcon.vue'
+import { computed } from 'vue'
 
-withDefaults(
+const props = withDefaults(
   defineProps<{
-    percentage?: number
+    activeIndex?: number
     active?: boolean
   }>(),
   {
-    percentage: 0,
+    activeIndex: 0,
   }
 )
+
+const topPosition = computed(() => {
+  const blockHeight =
+    document.querySelector('.n-training-block')?.getBoundingClientRect()
+      .height || 32
+  const spacing = 8
+  return props.activeIndex * spacing + props.activeIndex * blockHeight
+})
 </script>
 
 <style scoped>
