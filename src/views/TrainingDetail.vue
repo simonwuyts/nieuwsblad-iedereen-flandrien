@@ -129,7 +129,10 @@ const blocks = computed(() => {
 
 const activeIndex = computed(() => {
   const totalBlocks = blocks.value.length
-  return Math.round((elapsedSeconds.value / (training.time * 60)) * totalBlocks)
+  return Math.min(
+    Math.round((elapsedSeconds.value / (training.time * 60)) * totalBlocks),
+    totalBlocks - 1
+  )
 })
 
 const currentStatus = computed(() => {
