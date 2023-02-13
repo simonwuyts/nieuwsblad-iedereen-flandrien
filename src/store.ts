@@ -26,6 +26,7 @@ interface LocalUserData {
 interface State {
   localUserData: RemovableRef<LocalUserData>
   firestoreUserData: FirestoreUserData
+  startDate: Date
   currentWeekNumber: number
 }
 
@@ -50,6 +51,7 @@ export const useStore = defineStore('main', {
   state: (): State => ({
     localUserData: useStorage('userInfo', initialLocalUserData),
     firestoreUserData: initialFirestoreUserData,
+    startDate: new Date('2023-02-25'),
     currentWeekNumber: 1,
   }),
 
@@ -79,6 +81,10 @@ export const useStore = defineStore('main', {
         state.localUserData.sex,
         state.localUserData.level
       )
+    },
+
+    visibleWeeksAmount(state) {
+      return getWeekNumber(state.startDate)
     },
   },
 

@@ -1,4 +1,4 @@
-@import url("https://markup.nieuwsblad.be/extra/assets/css/fonts.css");
+@import url('https://markup.nieuwsblad.be/extra/assets/css/fonts.css');
 
 html,
 body {
@@ -12,15 +12,16 @@ body,
 }
 
 #app {
+  bottom: 0;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
-}
-
-#app {
-  bottom: 0;
   left: 0;
+  overflow-y: auto;
   position: fixed;
   right: 0;
   top: 0;
+}
+
+.site-nav-bottom {
+  display: none !important;
 }

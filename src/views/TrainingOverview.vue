@@ -13,7 +13,10 @@
       <n-button
         type="subtle"
         icon="chevron_right"
-        :disabled="store.currentWeekNumber === store.totalWeeks"
+        :disabled="
+          store.currentWeekNumber >= store.visibleWeeksAmount ||
+          store.currentWeekNumber === store.totalWeeks
+        "
         @click="nextWeek"
       />
     </template>
@@ -117,7 +120,10 @@ onMounted(async () => {
 })
 
 function nextWeek() {
-  if (store.currentWeekNumber < store.totalWeeks) {
+  if (
+    store.currentWeekNumber < store.totalWeeks &&
+    store.currentWeekNumber < store.visibleWeeksAmount
+  ) {
     store.currentWeekNumber = store.currentWeekNumber + 1
   }
 }
