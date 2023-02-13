@@ -9,7 +9,11 @@
         <span class="n-training-link__duration"
           >({{ formatMinutes(training.time) }})</span
         >
-        <n-icon v-if="completed" name="check" />
+        <n-icon
+          v-if="completed"
+          name="check"
+          class="n-training-link__completed"
+        />
       </div>
     </div>
     <div class="n-training-link__right">
@@ -25,11 +29,11 @@
 </template>
 
 <script setup lang="ts">
-import NIcon from '@/components/NIcon.vue'
 import NButton from '@/components/NButton.vue'
+import NIcon from '@/components/NIcon.vue'
+import { formatMinutes } from '@/lib/helpers'
 import { getTraining } from '@/lib/training-helpers'
 import { TrainingId } from '@/types'
-import { formatMinutes } from '@/lib/helpers'
 
 const props = defineProps<{
   trainingId: TrainingId
@@ -70,5 +74,12 @@ const training = getTraining(props.trainingId)
 
 .n-training-link__duration {
   opacity: 0.75;
+}
+
+.n-training-link__completed {
+  background-color: var(--color-nb-green);
+  border-radius: 50%;
+  color: #fff;
+  margin-left: 4px;
 }
 </style>

@@ -26,6 +26,7 @@ interface LocalUserData {
 interface State {
   localUserData: RemovableRef<LocalUserData>
   firestoreUserData: FirestoreUserData
+  emailWasNotRecognized?: boolean
   startDate: Date
   currentWeekNumber: number
 }
@@ -51,6 +52,7 @@ export const useStore = defineStore('main', {
   state: (): State => ({
     localUserData: useStorage('userInfo', initialLocalUserData),
     firestoreUserData: initialFirestoreUserData,
+    emailWasNotRecognized: false,
     startDate: new Date('2023-02-25'),
     currentWeekNumber: 1,
   }),
@@ -109,6 +111,10 @@ export const useStore = defineStore('main', {
         level: result.NIVEAU,
         sex: result.GESLACHT,
         age: parseInt(result.LEEFTIJD),
+      }
+
+      if (this.localUserData.email === '') {
+        this.emailWasNotRecognized = true
       }
 
       await this.fetchFirestoreUserData()
@@ -175,6 +181,9 @@ export const useStore = defineStore('main', {
           trainings: this.firestoreUserData.trainings,
         }
       )
+
+      //@ts-ignore
+      gtag('event', 'training_started', { debug_mode: true })
     },
 
     async pauseTraining(trainingId: TrainingId) {
@@ -224,6 +233,9 @@ export const useStore = defineStore('main', {
           trainings: this.firestoreUserData.trainings,
         }
       )
+
+      //@ts-ignore
+      gtag('event', 'training_completed', { debug_mode: true })
     },
 
     async resetTraining(trainingId: TrainingId) {
@@ -247,6 +259,7 @@ export const useStore = defineStore('main', {
     reset() {
       this.localUserData = initialLocalUserData
       this.firestoreUserData = initialFirestoreUserData
+      this.emailWasNotRecognized = false
     },
   },
 })

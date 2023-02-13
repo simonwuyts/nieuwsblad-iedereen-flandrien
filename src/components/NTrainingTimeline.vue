@@ -30,7 +30,7 @@ const props = withDefaults(
 const topPosition = computed(() => {
   const blockHeight =
     document.querySelector('.n-training-block')?.getBoundingClientRect()
-      .height || 32
+      .height || 61
   const spacing = 8
   return props.activeIndex * spacing + props.activeIndex * blockHeight
 })

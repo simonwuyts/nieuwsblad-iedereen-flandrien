@@ -7,7 +7,10 @@
       personaliseren.
     </p>
     <NForm>
-      <NInput label="Trainingstijd per week">
+      <NInput
+        label="Hoeveel uren kan je per week fietsen?"
+        helper="Je kan steeds tijdens je trainingsweken in de instellingen je beschikbare tijd aanpassen."
+      >
         <NSelect v-model="extraTimeValue">
           <option value="no">
             {{
@@ -21,16 +24,16 @@
           </option>
         </NSelect>
       </NInput>
-      <NInput label="Meeteenheid">
+      <NInput label="Werk je met een hartslag- of wattagemeter?">
         <NSelect v-model="zoneType">
-          <option value="heart">Maximale harstlag</option>
-          <option value="ftp">FTP</option>
+          <option value="heart">Maximale hartslag</option>
+          <option value="ftp">FTP (wattage)</option>
         </NSelect>
       </NInput>
       <NInput
         v-if="zoneType === 'heart'"
         label="Maximale hartslag"
-        helper="Weet je jouw maximale hartslag niet? Geen probleem. Dan baseren we ons op het gemiddelde voor een man/vrouw van jouw leeftijd."
+        helper="Om je maximale hartslag of wattage te bepalen fiets je 10 minuten voluit tegen wind."
       >
         <NTextfield type="number" v-model.number="maxHeartRate" />
       </NInput>

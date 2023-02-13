@@ -20,6 +20,7 @@
         :key="`${block.label}${index}`"
         :block="block"
         :active="activeIndex === index"
+        :type="store.firestoreUserData.zoneType"
       />
     </NTrainingBlocks>
   </NContent>

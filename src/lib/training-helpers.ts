@@ -82,8 +82,10 @@ export function generateTrainingBlocks(
     for (let j = 0; j < repeats; j++) {
       blocks.push({
         zoneNumber: zone.number,
-        label: `Zone ${zone.number}`,
-        range: `(${minValue} - ${maxValue})`,
+        label: zone.name,
+        range: `(${minValue}-${maxValue} ${
+          type === 'ftp' ? 'watt' : 'hartslagen'
+        })`,
         minutes: interval,
       })
       totalBlockTime = totalBlockTime + interval
@@ -97,7 +99,7 @@ export function generateTrainingBlocks(
     }
     if (i !== series - 1 && seriesRest > 0) {
       blocks.push({
-        label: `Rust`,
+        label: `Herstel`,
         minutes: seriesRest,
       })
       totalBlockTime = totalBlockTime + seriesRest

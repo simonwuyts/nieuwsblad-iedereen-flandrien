@@ -22,9 +22,7 @@
     </template>
   </NTitleBar>
   <NContent :is-flexible="false">
-    <p>
-      Hier vind je iedere zondag je persoonlijke trainingsschema’s. Veel succes!
-    </p>
+    <p>Veel succes deze week!</p>
     <NTrainingLinks>
       <NTrainingLink
         v-if="store.currentWeekTrainings['training1']"
@@ -59,7 +57,14 @@
       />
     </NTrainingLinks>
     <template v-if="store.firestoreUserData.extraTime">
-      <h2 class="n-divider-title">Bonustrainingen</h2>
+      <h2 class="n-divider-title">
+        Bonustrainingen
+        <div class="n-divider-title__subtitle">
+          Deze trainingen zijn een bonus bovenop je 12 weken durende
+          trainingsprogramma en horen dus niet bij de standaard voorziene
+          trainingen.
+        </div>
+      </h2>
       <NTrainingLinks>
         <NTrainingLink
           v-if="store.currentWeekTrainings['bonus1']"
@@ -81,6 +86,7 @@
         />
       </NTrainingLinks>
     </template>
+    <NLegend />
   </NContent>
   <NPartners />
 </template>
@@ -89,6 +95,7 @@
 import NButton from '@/components/NButton.vue'
 import NContent from '@/components/NContent.vue'
 import NHeader from '@/components/NHeader.vue'
+import NLegend from '@/components/NLegend.vue'
 import NPartners from '@/components/NPartners.vue'
 import NTitleBar from '@/components/NTitleBar.vue'
 import NTrainingLink from '@/components/NTrainingLink.vue'
@@ -144,8 +151,17 @@ function previousWeek() {
   font-weight: bold;
   letter-spacing: 0.03em;
   line-height: 24px;
-  margin: 32px -16px;
+  margin: 32px -16px 24px;
   padding: 12px 16px;
   text-transform: uppercase;
+}
+
+.n-divider-title__subtitle {
+  color: rgba(0, 0, 104, 50%);
+  font-size: 13px;
+  font-weight: normal;
+  letter-spacing: 0;
+  line-height: 20px;
+  text-transform: none;
 }
 </style>

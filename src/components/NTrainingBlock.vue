@@ -7,10 +7,10 @@
     ]"
   >
     <div class="n-training-block__left">
-      <span class="n-training-block__label">{{ block.label }}</span>
-      <span v-if="block.range" class="n-training-block__range">{{
-        block.range
-      }}</span>
+      <div class="n-training-block__label">{{ block.label }}</div>
+      <div v-if="block.range" class="n-training-block__range">
+        {{ block.range }}
+      </div>
     </div>
     <div class="n-training-block__right">
       <div class="n-training-block__minutes">
@@ -24,10 +24,16 @@
 import { formatMinutes } from '@/lib/helpers'
 import { TrainingBlock } from '@/types'
 
-const props = defineProps<{
-  block: TrainingBlock
-  active?: boolean
-}>()
+const props = withDefaults(
+  defineProps<{
+    block: TrainingBlock
+    active?: boolean
+    type: 'heart' | 'ftp'
+  }>(),
+  {
+    type: 'heart',
+  }
+)
 </script>
 
 <style lang="scss" scoped>

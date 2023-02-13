@@ -10,13 +10,19 @@
         Vul het e-mailadres in waarmee je bent ingeschreven en start meteen.
       </strong>
       Nog niet ingeschreven?
-      <a href="https://www.nieuwsblad.be/iedereenflandrien"
-        >Schrijf je nog snel in.</a
-      >
+      <a href="https://www.nieuwsblad.be/iedereenflandrien">
+        Schrijf je nog snel in.
+      </a>
     </p>
     <NForm>
       <NInput label="E-mailadres">
         <NTextfield type="email" v-model="email" name="email" />
+        <p v-if="store.emailWasNotRecognized" class="ds-error">
+          Het lijkt erop dat je nog niet geregistreerd bent met dit e-mailadres.
+          <a href="https://www.nieuwsblad.be/iedereenflandrien">
+            Schrijf je hier in.
+          </a>
+        </p>
       </NInput>
       <NInput>
         <NButton icon-right="chevron_right" @click="login">
@@ -53,3 +59,12 @@ async function login() {
   router.push({ name: 'onboarding' })
 }
 </script>
+
+<style scoped>
+.ds-error {
+  background-color: var(--color-zone-0);
+  display: block;
+  margin: 16px 0 8px !important;
+  padding: 16px;
+}
+</style>
