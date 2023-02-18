@@ -10,6 +10,20 @@
   </NTitleBar>
   <NContent :display-flex="true">
     <p v-if="training.description">{{ training.description }}</p>
+    <div style="display: grid; grid-template-columns: 1fr 1fr">
+      <NFoodUnits
+        v-if="training.solidUnits"
+        icon="nutrition"
+        label="Vast"
+        :food-units="training.solidUnits"
+      />
+      <NFoodUnits
+        v-if="training.fluidUnits"
+        icon="water_drop"
+        label="Vloeibaar"
+        :food-units="training.fluidUnits"
+      />
+    </div>
     <NTrainingBlocks>
       <NTrainingTimeline
         :active-index="activeIndex"
@@ -79,6 +93,7 @@
 import NButton from '@/components/NButton.vue'
 import NButtonRow from '@/components/NButtonRow.vue'
 import NContent from '@/components/NContent.vue'
+import NFoodUnits from '@/components/NFoodUnits.vue'
 import NFooterBar from '@/components/NFooterBar.vue'
 import NHeader from '@/components/NHeader.vue'
 import NTitleBar from '@/components/NTitleBar.vue'

@@ -9,7 +9,6 @@
     >
       <NIcon name="directions_bike" class="n-training-timeline__icon" />
     </div>
-    <!-- <div class="n-training-timeline__food"></div> -->
   </div>
 </template>
 
@@ -21,6 +20,7 @@ const props = withDefaults(
   defineProps<{
     activeIndex?: number
     active?: boolean
+    foodUnits?: number
   }>(),
   {
     activeIndex: 0,
@@ -80,20 +80,6 @@ const topPosition = computed(() => {
 .n-training-timeline__indicator--active {
   animation: pulse 1s ease-in-out 0s infinite both;
   opacity: 1;
-}
-
-.n-training-timeline__food {
-  background-color: #fff;
-  border-radius: 16px;
-  box-shadow: inset 0 0 0 2px var(--color-nb-dark-blue);
-  color: var(--color-nb-dark-blue);
-  height: 32px;
-  left: -12px;
-  padding-top: 6px;
-  position: absolute;
-  top: 20%;
-  width: 32px;
-  z-index: 0;
 }
 
 .n-training-timeline__icon {
