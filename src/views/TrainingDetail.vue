@@ -10,20 +10,25 @@
   </NTitleBar>
   <NContent :display-flex="true">
     <p v-if="training.description">{{ training.description }}</p>
-    <div style="display: grid; grid-template-columns: 1fr 1fr">
+    <div style="display: flex; gap: 24px">
       <NFoodUnits
         v-if="training.solidUnits"
         icon="nutrition"
-        label="Vast"
+        label="Voeding"
         :food-units="training.solidUnits"
       />
       <NFoodUnits
         v-if="training.fluidUnits"
         icon="water_drop"
-        label="Vloeibaar"
+        label="Vloeistof"
         :food-units="training.fluidUnits"
       />
     </div>
+    <p class="n-note">
+      Eén eenheid voeding komt overeen met 30g koolhydraten (dat is ongeveer één
+      gel, reep of grote banaan). Eén eenheid vloeistof komt overeen met één
+      bidon van 500 ml.
+    </p>
     <NTrainingBlocks>
       <NTrainingTimeline
         :active-index="activeIndex"
@@ -198,3 +203,10 @@ onMounted(async () => {
   calculateElapsedTime()
 })
 </script>
+
+<style lang="scss" scoped>
+.n-note {
+  font-size: 12px;
+  opacity: 0.6;
+}
+</style>
