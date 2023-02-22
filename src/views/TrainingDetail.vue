@@ -24,7 +24,7 @@
         :food-units="training.fluidUnits"
       />
     </div>
-    <p class="n-note">
+    <p v-if="training.solidUnits || training.fluidUnits" class="n-note">
       Eén eenheid voeding komt overeen met 30g koolhydraten (dat is ongeveer één
       gel, reep of grote banaan). Eén eenheid vloeistof komt overeen met één
       bidon van 500 ml.
