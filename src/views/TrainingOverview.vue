@@ -14,8 +14,9 @@
         type="subtle"
         icon="chevron_right"
         :disabled="
-          store.currentWeekNumber >= store.visibleWeeksAmount ||
-          store.currentWeekNumber === store.totalWeeks
+          (store.currentWeekNumber >= store.visibleWeeksAmount ||
+            store.currentWeekNumber === store.totalWeeks) &&
+          !store.debug
         "
         @click="nextWeek"
       />

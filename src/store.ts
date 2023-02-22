@@ -13,7 +13,6 @@ import { FirestoreUserData, TrainingId, TrainingLine } from '@/types'
 import { RemovableRef, useStorage } from '@vueuse/core'
 import { Timestamp } from 'firebase/firestore'
 import { defineStore } from 'pinia'
-
 interface LocalUserData {
   email: string
   firstName: string
@@ -29,6 +28,7 @@ interface State {
   emailWasNotRecognized?: boolean
   startDate: Date
   currentWeekNumber: number
+  debug?: boolean
 }
 
 const initialLocalUserData: LocalUserData = {
@@ -55,6 +55,7 @@ export const useStore = defineStore('main', {
     emailWasNotRecognized: false,
     startDate: new Date('2023-02-25'),
     currentWeekNumber: 1,
+    debug: new URLSearchParams(window.location.search).has('debug'),
   }),
 
   getters: {
@@ -85,8 +86,12 @@ export const useStore = defineStore('main', {
       )
     },
 
-    visibleWeeksAmount(state) {
-      return getWeekNumber(state.startDate)
+    visibleWeeksAmount(state): number {
+      if (state.debug) {
+        return this.totalWeeks
+      } else {
+        return getWeekNumber(state.startDate)
+      }
     },
   },
 
