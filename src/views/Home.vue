@@ -10,7 +10,10 @@
         Vul het e-mailadres in waarmee je bent ingeschreven en start meteen.
       </strong>
       Nog niet ingeschreven?
-      <a href="https://www.nieuwsblad.be/iedereenflandrien/inschrijven">
+      <a
+        href="https://www.nieuwsblad.be/iedereenflandrien/inschrijven"
+        target="_blank"
+      >
         Schrijf je nog snel in.
       </a>
     </p>
@@ -19,7 +22,10 @@
         <NTextfield type="email" v-model="email" name="email" />
         <p v-if="store.emailWasNotRecognized" class="ds-error">
           Het lijkt erop dat je nog niet geregistreerd bent met dit e-mailadres.
-          <a href="https://www.nieuwsblad.be/iedereenflandrien/inschrijven">
+          <a
+            href="https://www.nieuwsblad.be/iedereenflandrien/inschrijven"
+            target="_blank"
+          >
             Schrijf je hier in.
           </a>
         </p>
