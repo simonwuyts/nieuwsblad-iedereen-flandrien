@@ -53,7 +53,7 @@ export const useStore = defineStore('main', {
     localUserData: useStorage('userInfo', initialLocalUserData),
     firestoreUserData: initialFirestoreUserData,
     emailWasNotRecognized: false,
-    startDate: new Date('2023-02-25'),
+    startDate: new Date('2023-02-26'),
     currentWeekNumber: 1,
     debug: new URLSearchParams(window.location.search).has('debug'),
   }),

@@ -22,7 +22,7 @@ export function convertTrainingIdToKey(value: TrainingId) {
 export function getWeekNumber(start: Date) {
   return (
     Math.max(
-      differenceInCalendarWeeks(new Date(), start, { weekStartsOn: 1 }),
+      differenceInCalendarWeeks(new Date(), start, { weekStartsOn: 0 }),
       0
     ) + 1
   )

@@ -88,6 +88,7 @@
       </NTrainingLinks>
     </template>
     <NLegend />
+    <NFaq />
   </NContent>
   <NPartners />
 </template>
@@ -95,6 +96,7 @@
 <script setup lang="ts">
 import NButton from '@/components/NButton.vue'
 import NContent from '@/components/NContent.vue'
+import NFaq from '@/components/NFaq.vue'
 import NHeader from '@/components/NHeader.vue'
 import NLegend from '@/components/NLegend.vue'
 import NPartners from '@/components/NPartners.vue'

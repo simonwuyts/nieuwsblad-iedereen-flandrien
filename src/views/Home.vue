@@ -36,6 +36,7 @@
         </NButton>
       </NInput>
     </NForm>
+    <NFaq />
   </NContent>
   <NPartners />
 </template>
@@ -43,6 +44,7 @@
 <script lang="ts" setup>
 import NButton from '@/components/NButton.vue'
 import NContent from '@/components/NContent.vue'
+import NFaq from '@/components/NFaq.vue'
 import NForm from '@/components/NForm.vue'
 import NHeader from '@/components/NHeader.vue'
 import NInput from '@/components/NInput.vue'

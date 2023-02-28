@@ -5,6 +5,12 @@ const descriptions = {
     'Verbeter je basisconditie met deze training in de rustige duurzone. Kies steeds voor een vlak of licht golvend terrein, zodat je zo veel mogelijk met een soepele cadans met ongeveer 90 - 95 pedaalomwentelingen per minuut mooi in je hartslagzone blijft. Kies voor een beperkte koolhydraatinname om een optimaal effect op onze basisconditie te garanderen.',
   maximaleVetverbranding:
     'Je rijdt nuchter: je hebt minstens 6 uur niks gegeten. Dus deze training moet niet altijd ’s ochtends zijn. Rustig opwarmen met 90 pedaalomwentelingen per minuut in de rustige duurzone. Dertig minuten in de intensieve duurzone. Zet iets meer kracht met ongeveer 80 omwentelingen. Eindig weer in de rustige duurzone met 90 pedaalomwentelingen. Deze training wil je vetverbranding verbeteren. Beperkt koolhydraten innemen kan pas na een uur trainen en is ook echt noodzakelijk vanaf dan om de kwaliteit van de training te garanderen.',
+  maximaleVetverbranding1:
+    'Je rijdt nuchter: je hebt minstens 6 uur niks gegeten. Dus deze training moet niet altijd ’s ochtends zijn. Rustig opwarmen met 90 pedaalomwentelingen per minuut in de rustige duurzone. Vijftien minuten in de intensieve duurzone. Zet iets meer kracht met ongeveer 80 omwentelingen. Eindig weer in de rustige duurzone met 90 pedaalomwentelingen. Deze training wil je vetverbranding verbeteren. Beperkt koolhydraten innemen kan pas na een uur trainen en is ook echt noodzakelijk vanaf dan om de kwaliteit van de training te garanderen.',
+  maximaleVetverbranding2:
+    'Je rijdt nuchter: je hebt minstens 6 uur niks gegeten. Dus deze training moet niet altijd ’s ochtends zijn. Rustig opwarmen met 90 pedaalomwentelingen per minuut in de rustige duurzone. Twintig minuten in de intensieve duurzone. Zet iets meer kracht met ongeveer 80 omwentelingen. Eindig weer in de rustige duurzone met 90 pedaalomwentelingen. Deze training wil je vetverbranding verbeteren. Beperkt koolhydraten innemen kan pas na een uur trainen en is ook echt noodzakelijk vanaf dan om de kwaliteit van de training te garanderen.',
+  maximaleVetverbranding3:
+    'Je rijdt nuchter: je hebt minstens 6 uur niks gegeten. Dus deze training moet niet altijd ’s ochtends zijn. Rustig opwarmen met 90 pedaalomwentelingen per minuut in de rustige duurzone. Twee maal vijftien minuten in de intensieve duurzone. Zet iets meer kracht met ongeveer 80 omwentelingen. Eindig weer in de rustige duurzone met 90 pedaalomwentelingen. Deze training wil je vetverbranding verbeteren. Beperkt koolhydraten innemen kan pas na een uur trainen en is ook echt noodzakelijk vanaf dan om de kwaliteit van de training te garanderen.',
   maximaleVetverbrandingLang:
     'Deze training rijd je niet volledig nuchter, omdat je twee uur op de fiets zit. De prikkel voor je lichaam duurt te lang. Je neemt daarom vooraf een zeer lichte maaltijd met maximum 30 g koolhydraten. Dat kan bestaan uit 1 banaan of twee toasts met een dun laagje confituur, of een eitje en wat magere yoghurt. Je kan ook combineren met bijvoorbeeld een halve banaan en één toastje.',
   krachtopbouwMan:
@@ -117,7 +123,7 @@ export const trainings: Trainings = {
   },
   '2.1': {
     name: 'Maximale vetverbranding',
-    description: descriptions.maximaleVetverbranding,
+    description: descriptions.maximaleVetverbranding1,
     time: 45,
     repeats: 1,
     interval: 15,
@@ -129,7 +135,7 @@ export const trainings: Trainings = {
   },
   '2.2': {
     name: 'Maximale vetverbranding',
-    description: descriptions.maximaleVetverbranding,
+    description: descriptions.maximaleVetverbranding2,
     time: 60,
     repeats: 1,
     interval: 20,
@@ -141,7 +147,7 @@ export const trainings: Trainings = {
   },
   '2.3': {
     name: 'Maximale vetverbranding',
-    description: descriptions.maximaleVetverbranding,
+    description: descriptions.maximaleVetverbranding3,
     time: 60,
     repeats: 2,
     interval: 15,
