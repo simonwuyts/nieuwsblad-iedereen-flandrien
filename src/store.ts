@@ -171,7 +171,10 @@ export const useStore = defineStore('main', {
     },
 
     async startTraining(trainingId: TrainingId) {
-      const convertedId = convertTrainingIdToKey(trainingId)
+      const convertedId = convertTrainingIdToKey(
+        trainingId,
+        this.currentWeekNumber
+      )
 
       this.firestoreUserData.trainings[convertedId] = {
         ...this.firestoreUserData.trainings[convertedId],
@@ -192,7 +195,10 @@ export const useStore = defineStore('main', {
     },
 
     async pauseTraining(trainingId: TrainingId) {
-      const convertedId = convertTrainingIdToKey(trainingId)
+      const convertedId = convertTrainingIdToKey(
+        trainingId,
+        this.currentWeekNumber
+      )
 
       this.firestoreUserData.trainings[convertedId] = {
         ...this.firestoreUserData.trainings[convertedId],
@@ -223,7 +229,10 @@ export const useStore = defineStore('main', {
     },
 
     async completeTraining(trainingId: TrainingId) {
-      const convertedId = convertTrainingIdToKey(trainingId)
+      const convertedId = convertTrainingIdToKey(
+        trainingId,
+        this.currentWeekNumber
+      )
 
       this.firestoreUserData.trainings[convertedId] = {
         lastStartedAt: Timestamp.fromDate(new Date()),
@@ -244,7 +253,10 @@ export const useStore = defineStore('main', {
     },
 
     async resetTraining(trainingId: TrainingId) {
-      const convertedId = convertTrainingIdToKey(trainingId)
+      const convertedId = convertTrainingIdToKey(
+        trainingId,
+        this.currentWeekNumber
+      )
 
       this.firestoreUserData.trainings[convertedId] = {
         lastStartedAt: Timestamp.fromDate(new Date()),

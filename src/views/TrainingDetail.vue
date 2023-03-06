@@ -130,7 +130,10 @@ const elapsedSeconds = ref(0)
 const training = getTraining(props.trainingId)
 
 const calculateElapsedTime = () => {
-  const convertedId = convertTrainingIdToKey(props.trainingId)
+  const convertedId = convertTrainingIdToKey(
+    props.trainingId,
+    store.currentWeekNumber
+  )
   if (store.firestoreUserData.trainings[convertedId]) {
     elapsedSeconds.value = getElapsedSeconds(
       store.firestoreUserData.trainings[convertedId].segments || [],
@@ -158,10 +161,12 @@ const activeIndex = computed(() => {
 
 const currentStatus = computed(() => {
   if (
-    store.firestoreUserData.trainings[convertTrainingIdToKey(props.trainingId)]
+    store.firestoreUserData.trainings[
+      convertTrainingIdToKey(props.trainingId, store.currentWeekNumber)
+    ]
   ) {
     return store.firestoreUserData.trainings[
-      convertTrainingIdToKey(props.trainingId)
+      convertTrainingIdToKey(props.trainingId, store.currentWeekNumber)
     ].status
   } else {
     return 'idle'

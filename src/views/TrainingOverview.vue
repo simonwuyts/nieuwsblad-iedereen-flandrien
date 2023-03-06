@@ -120,7 +120,8 @@ const store = useStore()
 function isCompleted(key: TrainingKey) {
   const trainings = store.firestoreUserData?.trainings
   const trainingKey = convertTrainingIdToKey(
-    store.currentWeekTrainings[key] || '999.999'
+    store.currentWeekTrainings[key] || '999.999',
+    store.currentWeekNumber
   )
 
   if (trainings) {

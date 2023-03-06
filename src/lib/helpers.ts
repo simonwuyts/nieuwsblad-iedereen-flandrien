@@ -15,8 +15,8 @@ export function convertEmailToKey(value: string) {
   return value.replaceAll('.', '{{dot}}')
 }
 
-export function convertTrainingIdToKey(value: TrainingId) {
-  return value.replaceAll('.', '-')
+export function convertTrainingIdToKey(value: TrainingId, weekNumber: number) {
+  return `w${weekNumber}-${value.replaceAll('.', '-')}`
 }
 
 export function getWeekNumber(start: Date) {
