@@ -91,7 +91,8 @@ export function generateTrainingBlocks(
       totalBlockTime = totalBlockTime + interval
       if (j !== repeats - 1 && rest > 0) {
         blocks.push({
-          label: `Rust`,
+          zoneNumber: 1,
+          label: `Rustige duurzone (hartslag)`,
           minutes: rest,
         })
         totalBlockTime = totalBlockTime + rest
