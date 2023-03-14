@@ -28,6 +28,7 @@
       <NTrainingLink
         v-if="store.currentWeekTrainings['training1']"
         :training-id="store.currentWeekTrainings['training1']"
+        :converted-training-id="getConvertedTrainingId('training1')"
         :key="`${store.currentWeekNumber}${store.currentWeekTrainings['training1']}`"
         :completed="isCompleted('training1')"
         subtitle="Training 1"
@@ -35,6 +36,7 @@
       <NTrainingLink
         v-if="store.currentWeekTrainings['training2']"
         :training-id="store.currentWeekTrainings['training2']"
+        :converted-training-id="getConvertedTrainingId('training2')"
         :key="`${store.currentWeekNumber}${store.currentWeekTrainings['training2']}`"
         :completed="isCompleted('training2')"
         subtitle="Training 2"
@@ -42,6 +44,7 @@
       <NTrainingLink
         v-if="store.currentWeekTrainings['training3']"
         :training-id="store.currentWeekTrainings['training3']"
+        :converted-training-id="getConvertedTrainingId('training3')"
         :key="`${store.currentWeekNumber}${store.currentWeekTrainings['training3']}`"
         :completed="isCompleted('training3')"
         subtitle="Training 3"
@@ -49,6 +52,7 @@
       <NTrainingLink
         v-if="store.currentWeekTrainings['training4']"
         :training-id="store.currentWeekTrainings['training4']"
+        :converted-training-id="getConvertedTrainingId('training4')"
         :key="`${store.currentWeekNumber}${store.currentWeekTrainings['training4']}`"
         :completed="isCompleted('training4')"
         subtitle="Training 4"
@@ -56,6 +60,7 @@
       <NTrainingLink
         v-if="store.currentWeekTrainings['training5']"
         :training-id="store.currentWeekTrainings['training5']"
+        :converted-training-id="getConvertedTrainingId('training5')"
         :key="`${store.currentWeekNumber}${store.currentWeekTrainings['training5']}`"
         :completed="isCompleted('training5')"
         subtitle="Training 5"
@@ -74,6 +79,7 @@
         <NTrainingLink
           v-if="store.currentWeekTrainings['bonus1']"
           :training-id="store.currentWeekTrainings['bonus1']"
+          :converted-training-id="getConvertedTrainingId('bonus1')"
           :key="`${store.currentWeekNumber}${store.currentWeekTrainings['bonus1']}`"
           :completed="isCompleted('bonus1')"
           subtitle="Bonustraining 1"
@@ -81,6 +87,7 @@
         <NTrainingLink
           v-if="store.currentWeekTrainings['bonus2']"
           :training-id="store.currentWeekTrainings['bonus2']"
+          :converted-training-id="getConvertedTrainingId('bonus2')"
           :key="`${store.currentWeekNumber}${store.currentWeekTrainings['bonus2']}`"
           :completed="isCompleted('bonus2')"
           subtitle="Bonustraining 2"
@@ -88,6 +95,7 @@
         <NTrainingLink
           v-if="store.currentWeekTrainings['bonus3']"
           :training-id="store.currentWeekTrainings['bonus3']"
+          :converted-training-id="getConvertedTrainingId('bonus3')"
           :key="`${store.currentWeekNumber}${store.currentWeekTrainings['bonus3']}`"
           :completed="isCompleted('bonus3')"
           subtitle="Bonustraining 3"
@@ -117,15 +125,20 @@ import { onMounted } from 'vue'
 
 const store = useStore()
 
+function getConvertedTrainingId(key: TrainingKey) {
+  return convertTrainingIdToKey(
+    store.currentWeekTrainings[key] || '999.999',
+    store.currentWeekNumber,
+    store.currentWeekTrainingKeyIndexes[key]
+  )
+}
+
 function isCompleted(key: TrainingKey) {
   const trainings = store.firestoreUserData?.trainings
-  const trainingKey = convertTrainingIdToKey(
-    store.currentWeekTrainings[key] || '999.999',
-    store.currentWeekNumber
-  )
+  const convertedTrainingKey = getConvertedTrainingId(key)
 
   if (trainings) {
-    const training = trainings[trainingKey]
+    const training = trainings[convertedTrainingKey]
     return training && training.status === 'completed'
   } else {
     return false

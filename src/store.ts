@@ -1,9 +1,5 @@
 import { getFireStoreDocument, setFireStoreDocument } from '@/lib/firestore'
-import {
-  convertEmailToKey,
-  convertTrainingIdToKey,
-  getWeekNumber,
-} from '@/lib/helpers'
+import { convertEmailToKey, getWeekNumber } from '@/lib/helpers'
 import { getUserInfo } from '@/lib/selligent'
 import {
   getCurrentTrainingLine,
@@ -77,6 +73,21 @@ export const useStore = defineStore('main', {
         state.localUserData.level,
         state.currentWeekNumber
       )
+    },
+
+    currentWeekTrainingKeyIndexes(state) {
+      let uniqueTrainingIds: Record<string, number> = {}
+      let result: Record<string, number> = {}
+      Object.entries(this.currentWeekTrainings).forEach(([key, value]) => {
+        if (uniqueTrainingIds.hasOwnProperty(value)) {
+          uniqueTrainingIds[value] = uniqueTrainingIds[value] + 1
+        } else {
+          uniqueTrainingIds[value] = 0
+        }
+        result[key] = uniqueTrainingIds[value]
+      })
+
+      return result
     },
 
     totalWeeks(state) {
@@ -170,14 +181,9 @@ export const useStore = defineStore('main', {
       }
     },
 
-    async startTraining(trainingId: TrainingId) {
-      const convertedId = convertTrainingIdToKey(
-        trainingId,
-        this.currentWeekNumber
-      )
-
-      this.firestoreUserData.trainings[convertedId] = {
-        ...this.firestoreUserData.trainings[convertedId],
+    async startTraining(convertedTrainingId: string) {
+      this.firestoreUserData.trainings[convertedTrainingId] = {
+        ...this.firestoreUserData.trainings[convertedTrainingId],
         status: 'started',
         lastStartedAt: Timestamp.fromDate(new Date()),
       }
@@ -194,26 +200,24 @@ export const useStore = defineStore('main', {
       gtag('event', 'training_started', { debug_mode: true })
     },
 
-    async pauseTraining(trainingId: TrainingId) {
-      const convertedId = convertTrainingIdToKey(
-        trainingId,
-        this.currentWeekNumber
-      )
-
-      this.firestoreUserData.trainings[convertedId] = {
-        ...this.firestoreUserData.trainings[convertedId],
+    async pauseTraining(convertedTrainingId: TrainingId) {
+      this.firestoreUserData.trainings[convertedTrainingId] = {
+        ...this.firestoreUserData.trainings[convertedTrainingId],
         status: 'paused',
       }
 
-      if (this.firestoreUserData.trainings[convertedId].segments) {
-        this.firestoreUserData.trainings[convertedId].segments?.push({
-          start: this.firestoreUserData.trainings[convertedId].lastStartedAt,
+      if (this.firestoreUserData.trainings[convertedTrainingId].segments) {
+        this.firestoreUserData.trainings[convertedTrainingId].segments?.push({
+          start:
+            this.firestoreUserData.trainings[convertedTrainingId].lastStartedAt,
           stop: Timestamp.fromDate(new Date()),
         })
       } else {
-        this.firestoreUserData.trainings[convertedId].segments = [
+        this.firestoreUserData.trainings[convertedTrainingId].segments = [
           {
-            start: this.firestoreUserData.trainings[convertedId].lastStartedAt,
+            start:
+              this.firestoreUserData.trainings[convertedTrainingId]
+                .lastStartedAt,
             stop: Timestamp.fromDate(new Date()),
           },
         ]
@@ -228,13 +232,8 @@ export const useStore = defineStore('main', {
       )
     },
 
-    async completeTraining(trainingId: TrainingId) {
-      const convertedId = convertTrainingIdToKey(
-        trainingId,
-        this.currentWeekNumber
-      )
-
-      this.firestoreUserData.trainings[convertedId] = {
+    async completeTraining(convertedTrainingId: TrainingId) {
+      this.firestoreUserData.trainings[convertedTrainingId] = {
         lastStartedAt: Timestamp.fromDate(new Date()),
         segments: [],
         status: 'completed',
@@ -252,13 +251,8 @@ export const useStore = defineStore('main', {
       gtag('event', 'training_completed', { debug_mode: true })
     },
 
-    async resetTraining(trainingId: TrainingId) {
-      const convertedId = convertTrainingIdToKey(
-        trainingId,
-        this.currentWeekNumber
-      )
-
-      this.firestoreUserData.trainings[convertedId] = {
+    async resetTraining(convertedTrainingId: TrainingId) {
+      this.firestoreUserData.trainings[convertedTrainingId] = {
         lastStartedAt: Timestamp.fromDate(new Date()),
         segments: [],
         status: 'idle',

@@ -21,7 +21,7 @@ export const router = createRouter({
       component: () => import('./views/TrainingOverview.vue'),
     },
     {
-      path: '/training/:trainingId/:subtitle',
+      path: '/training/:trainingId/:convertedTrainingId/:subtitle',
       name: 'trainingDetails',
       component: () => import('./views/TrainingDetail.vue'),
       props: true,

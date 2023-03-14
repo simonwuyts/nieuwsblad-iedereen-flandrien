@@ -21,7 +21,11 @@
         icon="chevron_right"
         :to="{
           name: 'trainingDetails',
-          params: { trainingId: trainingId, subtitle: subtitle },
+          params: {
+            trainingId: trainingId,
+            convertedTrainingId: convertedTrainingId,
+            subtitle: subtitle,
+          },
         }"
       />
     </div>
@@ -37,6 +41,7 @@ import { TrainingId } from '@/types'
 
 const props = defineProps<{
   trainingId: TrainingId
+  convertedTrainingId: string
   subtitle?: string
   bonus?: boolean
   completed?: boolean

@@ -105,7 +105,6 @@ import NTitleBar from '@/components/NTitleBar.vue'
 import NTrainingBlock from '@/components/NTrainingBlock.vue'
 import NTrainingBlocks from '@/components/NTrainingBlocks.vue'
 import NTrainingTimeline from '@/components/NTrainingTimeline.vue'
-import { convertTrainingIdToKey } from '@/lib/helpers'
 import {
   generateTrainingBlocks,
   getElapsedSeconds,
@@ -118,6 +117,7 @@ import { useRouter } from 'vue-router'
 
 const props = defineProps<{
   trainingId: TrainingId
+  convertedTrainingId: string
   subtitle?: string
 }>()
 
@@ -130,15 +130,13 @@ const elapsedSeconds = ref(0)
 const training = getTraining(props.trainingId)
 
 const calculateElapsedTime = () => {
-  const convertedId = convertTrainingIdToKey(
-    props.trainingId,
-    store.currentWeekNumber
-  )
-  if (store.firestoreUserData.trainings[convertedId]) {
+  if (store.firestoreUserData.trainings[props.convertedTrainingId]) {
     elapsedSeconds.value = getElapsedSeconds(
-      store.firestoreUserData.trainings[convertedId].segments || [],
-      store.firestoreUserData.trainings[convertedId].lastStartedAt,
-      store.firestoreUserData.trainings[convertedId].status
+      store.firestoreUserData.trainings[props.convertedTrainingId].segments ||
+        [],
+      store.firestoreUserData.trainings[props.convertedTrainingId]
+        .lastStartedAt,
+      store.firestoreUserData.trainings[props.convertedTrainingId].status
     )
   }
 }
@@ -160,14 +158,8 @@ const activeIndex = computed(() => {
 })
 
 const currentStatus = computed(() => {
-  if (
-    store.firestoreUserData.trainings[
-      convertTrainingIdToKey(props.trainingId, store.currentWeekNumber)
-    ]
-  ) {
-    return store.firestoreUserData.trainings[
-      convertTrainingIdToKey(props.trainingId, store.currentWeekNumber)
-    ].status
+  if (store.firestoreUserData.trainings[props.convertedTrainingId]) {
+    return store.firestoreUserData.trainings[props.convertedTrainingId].status
   } else {
     return 'idle'
   }
@@ -182,23 +174,23 @@ function backToOverview() {
 }
 
 function start() {
-  store.startTraining(props.trainingId)
+  store.startTraining(props.convertedTrainingId)
   timerInterval.value = setInterval(calculateElapsedTime, 1000)
 }
 
 function pause() {
-  store.pauseTraining(props.trainingId)
+  store.pauseTraining(props.convertedTrainingId)
   clearInterval(timerInterval.value)
 }
 
 function complete() {
-  store.completeTraining(props.trainingId)
+  store.completeTraining(props.convertedTrainingId)
   clearInterval(timerInterval.value)
   elapsedSeconds.value = training.time * 60
 }
 
 function reset() {
-  store.resetTraining(props.trainingId)
+  store.resetTraining(props.convertedTrainingId)
   clearInterval(timerInterval.value)
   elapsedSeconds.value = 0
 }
