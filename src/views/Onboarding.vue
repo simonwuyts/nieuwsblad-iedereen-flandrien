@@ -3,8 +3,8 @@
   <NTitleBar title="Iedereen Flandrien" />
   <NContent :is-flexible="false">
     <p>
-      We hebben nog een paar gegevens nodig zodat we je trainingsschema's kunnen
-      personaliseren.
+      We hebben nog enkele gegevens nodig zodat we je trainingsschema's op maat
+      kunnen tonen.
     </p>
     <NForm>
       <NInput
