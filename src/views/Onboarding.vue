@@ -71,21 +71,17 @@ const extraTimeValue = ref(store.firestoreUserData?.extraTime ? 'yes' : 'no')
 const extraTime = computed(() => {
   return extraTimeValue.value === 'yes'
 })
-const zoneType = ref(unref(store.firestoreUserData?.zoneType) || 'heart')
+const zoneType = ref(unref(store.localUserData?.zoneType) || 'heart')
 const maxHeartRate = ref(
-  unref(store.firestoreUserData?.maxHeartRate) ||
-    220 - store.localUserData.age ||
-    0
+  unref(store.localUserData?.maxHeartRate) || 220 - store.localUserData.age || 0
 )
-const maxFTP = ref(unref(store.firestoreUserData?.maxFTP) || 0)
+const maxFTP = ref(unref(store.localUserData?.maxFTP) || 0)
 
 async function save() {
-  await store.saveFirestoreUserData(
-    extraTime.value,
-    zoneType.value,
-    maxHeartRate.value,
-    maxFTP.value
-  )
+  await store.saveFirestoreUserData(extraTime.value)
+  store.localUserData.zoneType = zoneType.value
+  store.localUserData.maxHeartRate = maxHeartRate.value
+  store.localUserData.maxFTP = maxFTP.value
   router.push({ name: 'trainingOverview' })
 }
 </script>

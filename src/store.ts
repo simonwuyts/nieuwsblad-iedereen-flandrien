@@ -16,6 +16,9 @@ interface LocalUserData {
   level: 'BEGINNER' | 'GEVORDERD'
   sex: 'MALE' | 'FEMALE'
   age: number
+  zoneType: 'heart' | 'ftp'
+  maxHeartRate: number
+  maxFTP: number
 }
 
 interface State {
@@ -34,19 +37,19 @@ const initialLocalUserData: LocalUserData = {
   level: 'BEGINNER',
   sex: 'MALE',
   age: 30,
-}
-
-const initialFirestoreUserData: FirestoreUserData = {
   zoneType: 'heart',
   maxHeartRate: 0,
   maxFTP: 0,
+}
+
+const initialFirestoreUserData: FirestoreUserData = {
   extraTime: false,
   trainings: {},
 }
 
 export const useStore = defineStore('main', {
   state: (): State => ({
-    localUserData: useStorage('userInfo', initialLocalUserData),
+    localUserData: useStorage('userInfoWave2', initialLocalUserData),
     firestoreUserData: initialFirestoreUserData,
     emailWasNotRecognized: false,
     startDate: new Date('2023-02-26'),
@@ -56,13 +59,13 @@ export const useStore = defineStore('main', {
 
   getters: {
     baseValue(state) {
-      if (state.firestoreUserData.zoneType === 'ftp') {
-        return state.firestoreUserData.maxFTP > 0
-          ? state.firestoreUserData.maxFTP
+      if (state.localUserData.zoneType === 'ftp') {
+        return state.localUserData.maxFTP > 0
+          ? state.localUserData.maxFTP
           : 220 - state.localUserData.age
       } else {
-        return state.firestoreUserData.maxHeartRate > 0
-          ? state.firestoreUserData.maxHeartRate
+        return state.localUserData.maxHeartRate > 0
+          ? state.localUserData.maxHeartRate
           : 220 - state.localUserData.age
       }
     },
@@ -96,14 +99,6 @@ export const useStore = defineStore('main', {
         state.localUserData.level
       )
     },
-
-    visibleWeeksAmount(state): number {
-      if (state.debug) {
-        return this.totalWeeks
-      } else {
-        return getWeekNumber(state.startDate)
-      }
-    },
   },
 
   actions: {
@@ -121,6 +116,7 @@ export const useStore = defineStore('main', {
       const result = await getUserInfo(email)
 
       this.localUserData = {
+        ...this.localUserData,
         email: result.MAIL,
         firstName: result.VOORNAAM,
         lastName: result.NAAM,
@@ -140,7 +136,7 @@ export const useStore = defineStore('main', {
       if (this.localUserData.email !== '') {
         this.firestoreUserData =
           (await getFireStoreDocument(
-            'users',
+            'users-wave-2',
             convertEmailToKey(this.localUserData.email)
           )) || this.firestoreUserData
       }
@@ -150,7 +146,7 @@ export const useStore = defineStore('main', {
       if (this.localUserData.email !== '') {
         if (!this.firestoreUserData.startDate) {
           await setFireStoreDocument(
-            'users',
+            'users-wave-2',
             convertEmailToKey(this.localUserData.email),
             {
               startDate: new Date(),
@@ -160,21 +156,13 @@ export const useStore = defineStore('main', {
       }
     },
 
-    async saveFirestoreUserData(
-      extraTime: boolean,
-      zoneType: 'heart' | 'ftp',
-      maxHeartRate: number,
-      maxFTP: number
-    ) {
+    async saveFirestoreUserData(extraTime: boolean) {
       if (this.localUserData.email !== '') {
         await setFireStoreDocument(
-          'users',
+          'users-wave-2',
           convertEmailToKey(this.localUserData.email),
           {
             extraTime,
-            zoneType,
-            maxHeartRate,
-            maxFTP,
             trainings: this.firestoreUserData.trainings || {},
           }
         )
@@ -189,7 +177,7 @@ export const useStore = defineStore('main', {
       }
 
       await setFireStoreDocument(
-        'users',
+        'users-wave-2',
         convertEmailToKey(this.localUserData.email),
         {
           trainings: this.firestoreUserData.trainings,
@@ -224,7 +212,7 @@ export const useStore = defineStore('main', {
       }
 
       await setFireStoreDocument(
-        'users',
+        'users-wave-2',
         convertEmailToKey(this.localUserData.email),
         {
           trainings: this.firestoreUserData.trainings,
@@ -240,7 +228,7 @@ export const useStore = defineStore('main', {
       }
 
       await setFireStoreDocument(
-        'users',
+        'users-wave-2',
         convertEmailToKey(this.localUserData.email),
         {
           trainings: this.firestoreUserData.trainings,
@@ -259,7 +247,7 @@ export const useStore = defineStore('main', {
       }
 
       await setFireStoreDocument(
-        'users',
+        'users-wave-2',
         convertEmailToKey(this.localUserData.email),
         {
           trainings: this.firestoreUserData.trainings,

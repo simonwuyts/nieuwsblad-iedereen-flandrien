@@ -13,11 +13,7 @@ export interface Training {
   rest?: number
   minIntensity: number
   maxIntensity: number
-  carbs?: number
-  totalCarbs?: number
-  solidUnits?: number
-  fluidUnits?: number
-  waterUnits?: number
+  carbsPerHour?: number
 }
 
 export type Trainings = Record<TrainingId, Training>
@@ -69,9 +65,6 @@ export interface Segment {
 export type TrainingStatus = 'paused' | 'started' | 'idle' | 'completed'
 
 export interface FirestoreUserData {
-  zoneType: 'heart' | 'ftp'
-  maxHeartRate: number
-  maxFTP: number
   extraTime: boolean
   startDate?: Timestamp
   trainings: Record<
