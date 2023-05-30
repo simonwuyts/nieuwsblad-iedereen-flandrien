@@ -40,6 +40,14 @@
       <NInput v-if="zoneType === 'ftp'" label="Maximale FTP">
         <NTextfield type="number" v-model.number="maxFTP" />
       </NInput>
+      <NInput
+        label="Heb jij het vorige programma van Iedereen Flandrien (februari-mei) voltooid?"
+      >
+        <NSelect v-model="previousWaveValue">
+          <option value="yes">Ja</option>
+          <option value="no">Neen</option>
+        </NSelect>
+      </NInput>
       <NInput>
         <NButton icon-right="chevron_right" @click="save"> Start</NButton>
       </NInput>
@@ -76,12 +84,19 @@ const maxHeartRate = ref(
   unref(store.localUserData?.maxHeartRate) || 220 - store.localUserData.age || 0
 )
 const maxFTP = ref(unref(store.localUserData?.maxFTP) || 0)
+const previousWaveValue = ref(
+  store.localUserData?.didPreviousWave ? 'yes' : 'no'
+)
+const previousWave = computed(() => {
+  return previousWaveValue.value === 'yes'
+})
 
 async function save() {
   await store.saveFirestoreUserData(extraTime.value)
   store.localUserData.zoneType = zoneType.value
   store.localUserData.maxHeartRate = maxHeartRate.value
   store.localUserData.maxFTP = maxFTP.value
+  store.localUserData.didPreviousWave = previousWave.value
   router.push({ name: 'trainingOverview' })
 }
 </script>

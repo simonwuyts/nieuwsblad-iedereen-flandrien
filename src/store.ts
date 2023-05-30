@@ -19,6 +19,7 @@ interface LocalUserData {
   zoneType: 'heart' | 'ftp'
   maxHeartRate: number
   maxFTP: number
+  didPreviousWave: boolean
 }
 
 interface State {
@@ -40,6 +41,7 @@ const initialLocalUserData: LocalUserData = {
   zoneType: 'heart',
   maxHeartRate: 0,
   maxFTP: 0,
+  didPreviousWave: false,
 }
 
 const initialFirestoreUserData: FirestoreUserData = {
@@ -74,6 +76,7 @@ export const useStore = defineStore('main', {
       return getCurrentTrainingLine(
         state.localUserData.sex,
         state.localUserData.level,
+        state.localUserData.didPreviousWave,
         state.currentWeekNumber
       )
     },
@@ -96,7 +99,8 @@ export const useStore = defineStore('main', {
     totalWeeks(state) {
       return getTrainingLineWeeks(
         state.localUserData.sex,
-        state.localUserData.level
+        state.localUserData.level,
+        state.localUserData.didPreviousWave
       )
     },
   },

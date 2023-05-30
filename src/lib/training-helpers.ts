@@ -30,21 +30,25 @@ export function getTrainingZone(
 export function getCurrentTrainingLine(
   sex: 'MALE' | 'FEMALE',
   level: 'BEGINNER' | 'GEVORDERD',
+  previousWave: boolean,
   weekNumber: number
 ) {
   const sexKey = sex === 'MALE' ? 'male' : 'female'
   const levelKey = level === 'BEGINNER' ? 'beginner' : 'advanced'
+  const waveKey = previousWave ? 'previousWave' : 'newUser'
 
-  return lines[sexKey][levelKey][weekNumber - 1]
+  return lines[waveKey][sexKey][levelKey][weekNumber - 1]
 }
 
 export function getTrainingLineWeeks(
   sex: 'MALE' | 'FEMALE',
-  level: 'BEGINNER' | 'GEVORDERD'
+  level: 'BEGINNER' | 'GEVORDERD',
+  previousWave: boolean
 ) {
   const sexKey = sex === 'MALE' ? 'male' : 'female'
   const levelKey = level === 'BEGINNER' ? 'beginner' : 'advanced'
-  return lines[sexKey][levelKey].length
+  const waveKey = previousWave ? 'previousWave' : 'newUser'
+  return lines[waveKey][sexKey][levelKey].length
 }
 
 export function getTraining(trainingId: TrainingId) {
@@ -59,15 +63,16 @@ export function generateTrainingBlocks(
   const blocks: TrainingBlock[] = []
 
   const training = trainings[trainingId]
-  const zone = getTrainingZone(
-    training.minIntensity,
-    training.maxIntensity,
-    type
-  )
-  const minPercentage = type === 'ftp' ? zone.minFTP : zone.minHeart
-  const maxPercentage = type === 'ftp' ? zone.maxFTP : zone.maxHeart
-  const minValue = Math.floor(baseValue * (minPercentage / 100))
-  const maxValue = Math.floor(baseValue * (maxPercentage / 100))
+
+  let zone, minPercentage, maxPercentage, minValue, maxValue
+
+  if (training.minIntensity && training.maxIntensity) {
+    zone = getTrainingZone(training.minIntensity, training.maxIntensity, type)
+    minPercentage = type === 'ftp' ? zone.minFTP : zone.minHeart
+    maxPercentage = type === 'ftp' ? zone.maxFTP : zone.maxHeart
+    minValue = Math.floor(baseValue * (minPercentage / 100))
+    maxValue = Math.floor(baseValue * (maxPercentage / 100))
+  }
 
   const series = training.series || 1
   const seriesRest = training.seriesRest || 0
@@ -81,11 +86,14 @@ export function generateTrainingBlocks(
   for (let i = 0; i < series; i++) {
     for (let j = 0; j < repeats; j++) {
       blocks.push({
-        zoneNumber: zone.number,
-        label: zone.name,
-        range: `(${minValue}-${maxValue} ${
-          type === 'ftp' ? 'watt' : 'hartslagen'
-        })`,
+        zoneNumber: zone?.number || 0,
+        label: zone?.name || '',
+        range:
+          minValue && maxValue
+            ? `(${minValue}-${maxValue} ${
+                type === 'ftp' ? 'watt' : 'hartslagen'
+              })`
+            : '',
         minutes: interval,
       })
       totalBlockTime = totalBlockTime + interval

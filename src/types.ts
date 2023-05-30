@@ -10,10 +10,17 @@ export interface Training {
   seriesRest?: number
   repeats?: number
   interval?: number
+  interval2?: number
   rest?: number
-  minIntensity: number
-  maxIntensity: number
+  minIntensity?: number
+  minIntensity2?: number
+  maxIntensity?: number
+  maxIntensity2?: number
   carbsPerHour?: number
+  totalCarbs?: number
+  solidUnits?: number
+  liquidUnits?: number
+  waterUnits?: number
 }
 
 export type Trainings = Record<TrainingId, Training>
@@ -31,13 +38,25 @@ export type TrainingKey =
 export type TrainingLine = Partial<Record<TrainingKey, TrainingId>>
 
 export interface TrainingLines {
-  male: {
-    beginner: TrainingLine[]
-    advanced: TrainingLine[]
+  previousWave: {
+    male: {
+      beginner: TrainingLine[]
+      advanced: TrainingLine[]
+    }
+    female: {
+      beginner: TrainingLine[]
+      advanced: TrainingLine[]
+    }
   }
-  female: {
-    beginner: TrainingLine[]
-    advanced: TrainingLine[]
+  newUser: {
+    male: {
+      beginner: TrainingLine[]
+      advanced: TrainingLine[]
+    }
+    female: {
+      beginner: TrainingLine[]
+      advanced: TrainingLine[]
+    }
   }
 }
 

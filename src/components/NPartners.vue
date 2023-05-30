@@ -27,6 +27,7 @@
 .n-partners {
   align-items: center;
   display: flex;
+  flex-wrap: wrap;
   gap: 24px;
   justify-content: center;
   padding: 16px;
