@@ -2,7 +2,11 @@
   <div class="n-faq">
     <p class="n-faq__item">
       Op zoek naar de trainingsschema's van
-      <a href="#" target="_blank">het vorige programma</a>?
+      <a
+        href="https://wave1.nieuwsblad-iedereen-flandrien.pages.dev/"
+        target="_blank"
+        >het vorige programma</a
+      >?
     </p>
     <p class="n-faq__item">
       Bekijk ook andere

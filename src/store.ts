@@ -171,6 +171,9 @@ export const useStore = defineStore('main', {
             trainings: this.firestoreUserData.trainings || {},
           }
         )
+
+        // @ts-ignore-next-line
+        gtag('event', 'email_filled', { debug_mode: true })
       }
     },
 
@@ -189,7 +192,7 @@ export const useStore = defineStore('main', {
         }
       )
 
-      //@ts-ignore
+      //@ts-ignore-next-line
       gtag('event', 'training_started', { debug_mode: true })
     },
 
@@ -240,7 +243,7 @@ export const useStore = defineStore('main', {
         }
       )
 
-      //@ts-ignore
+      //@ts-ignore-next-line
       gtag('event', 'training_completed', { debug_mode: true })
     },
 
