@@ -109,8 +109,9 @@ export const useStore = defineStore('main', {
   actions: {
     getWeekNumber() {
       if (this.firestoreUserData.startDate) {
-        this.currentWeekNumber = getWeekNumber(
-          this.firestoreUserData.startDate.toDate()
+        this.currentWeekNumber = Math.min(
+          getWeekNumber(this.firestoreUserData.startDate.toDate()),
+          this.totalWeeks
         )
       } else {
         return 1
