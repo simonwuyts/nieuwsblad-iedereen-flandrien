@@ -5,22 +5,10 @@ import {
   getCurrentTrainingLine,
   getTrainingLineWeeks,
 } from '@/lib/training-helpers'
-import { FirestoreUserData, TrainingId, TrainingLine } from '@/types'
+import { FirestoreUserData, LocalUserData, TrainingLine } from '@/types'
 import { RemovableRef, useStorage } from '@vueuse/core'
 import { Timestamp } from 'firebase/firestore'
 import { defineStore } from 'pinia'
-interface LocalUserData {
-  email: string
-  firstName: string
-  lastName: string
-  level: 'BEGINNER' | 'GEVORDERD'
-  sex: 'MALE' | 'FEMALE'
-  age: number
-  zoneType: 'heart' | 'ftp'
-  maxHeartRate: number
-  maxFTP: number
-  didPreviousWave: boolean
-}
 
 interface State {
   localUserData: RemovableRef<LocalUserData>
@@ -102,6 +90,16 @@ export const useStore = defineStore('main', {
         state.localUserData.level,
         state.localUserData.didPreviousWave
       )
+    },
+
+    skippedTrainings(state) {
+      return Object.entries(state.firestoreUserData.trainings)
+        .filter((entry) => entry[1].status === 'skipped')
+        .map((entry) => entry[0])
+    },
+
+    skippingIsEnabled(): boolean {
+      return this.skippedTrainings.length < 5
     },
   },
 
@@ -196,7 +194,25 @@ export const useStore = defineStore('main', {
       gtag('event', 'training_started', { debug_mode: true })
     },
 
-    async pauseTraining(convertedTrainingId: TrainingId) {
+    async skipTraining(convertedTrainingId: string) {
+      this.firestoreUserData.trainings[convertedTrainingId] = {
+        ...this.firestoreUserData.trainings[convertedTrainingId],
+        status: 'skipped',
+      }
+
+      await setFireStoreDocument(
+        'users-wave-2',
+        convertEmailToKey(this.localUserData.email),
+        {
+          trainings: this.firestoreUserData.trainings,
+        }
+      )
+
+      //@ts-ignore-next-line
+      gtag('event', 'training_skipped', { debug_mode: true })
+    },
+
+    async pauseTraining(convertedTrainingId: string) {
       this.firestoreUserData.trainings[convertedTrainingId] = {
         ...this.firestoreUserData.trainings[convertedTrainingId],
         status: 'paused',
@@ -228,7 +244,7 @@ export const useStore = defineStore('main', {
       )
     },
 
-    async completeTraining(convertedTrainingId: TrainingId) {
+    async completeTraining(convertedTrainingId: string) {
       this.firestoreUserData.trainings[convertedTrainingId] = {
         lastStartedAt: Timestamp.fromDate(new Date()),
         segments: [],
@@ -247,7 +263,7 @@ export const useStore = defineStore('main', {
       gtag('event', 'training_completed', { debug_mode: true })
     },
 
-    async resetTraining(convertedTrainingId: TrainingId) {
+    async resetTraining(convertedTrainingId: string) {
       this.firestoreUserData.trainings[convertedTrainingId] = {
         lastStartedAt: Timestamp.fromDate(new Date()),
         segments: [],

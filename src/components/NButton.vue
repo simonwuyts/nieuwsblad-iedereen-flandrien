@@ -77,6 +77,11 @@ const component = computed(() => {
   color: var(--color-nb-dark-blue);
 }
 
+.n-button--danger {
+  background-color: var(--color-nb-orange);
+  color: #fff;
+}
+
 .n-button--icon {
   flex: none;
   padding: 10px;

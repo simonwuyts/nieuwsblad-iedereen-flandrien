@@ -49,6 +49,9 @@
         </NSelect>
       </NInput>
       <NInput>
+        <p>{{ goalMessage }}</p>
+      </NInput>
+      <NInput>
         <NButton icon-right="chevron_right" @click="save"> Start</NButton>
       </NInput>
     </NForm>
@@ -68,6 +71,7 @@ import NPartners from '@/components/NPartners.vue'
 import NSelect from '@/components/NSelect.vue'
 import NTextfield from '@/components/NTextfield.vue'
 import NTitleBar from '@/components/NTitleBar.vue'
+import { getGoalMessage } from '@/lib/training-helpers'
 import { useStore } from '@/store'
 import { computed, ref, unref } from 'vue'
 import { useRouter } from 'vue-router'
@@ -89,6 +93,14 @@ const previousWaveValue = ref(
 )
 const previousWave = computed(() => {
   return previousWaveValue.value === 'yes'
+})
+
+const goalMessage = computed(() => {
+  return getGoalMessage(
+    store.localUserData.level,
+    previousWave.value,
+    extraTime.value
+  )
 })
 
 async function save() {

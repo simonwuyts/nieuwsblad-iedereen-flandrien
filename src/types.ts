@@ -35,7 +35,13 @@ export type TrainingKey =
   | 'bonus2'
   | 'bonus3'
 
-export type TrainingLine = Partial<Record<TrainingKey, TrainingId>>
+type TrainingLineType = {
+  [key in TrainingKey]?: TrainingId
+}
+
+export interface TrainingLine extends TrainingLineType {
+  optionals?: TrainingKey[]
+}
 
 export interface TrainingLines {
   previousWave: {
@@ -81,7 +87,25 @@ export interface Segment {
   stop: Timestamp
 }
 
-export type TrainingStatus = 'paused' | 'started' | 'idle' | 'completed'
+export type TrainingStatus =
+  | 'paused'
+  | 'started'
+  | 'idle'
+  | 'completed'
+  | 'skipped'
+
+export interface LocalUserData {
+  email: string
+  firstName: string
+  lastName: string
+  level: 'BEGINNER' | 'GEVORDERD'
+  sex: 'MALE' | 'FEMALE'
+  age: number
+  zoneType: 'heart' | 'ftp'
+  maxHeartRate: number
+  maxFTP: number
+  didPreviousWave: boolean
+}
 
 export interface FirestoreUserData {
   extraTime: boolean

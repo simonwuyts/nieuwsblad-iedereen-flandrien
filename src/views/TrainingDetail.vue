@@ -18,13 +18,13 @@
         :food-units="training.solidUnits"
       />
       <NFoodUnits
-        v-if="training.fluidUnits"
+        v-if="training.liquidUnits"
         icon="water_drop"
         label="Vloeistof"
-        :food-units="training.fluidUnits"
+        :food-units="training.liquidUnits"
       />
     </div>
-    <p v-if="training.solidUnits || training.fluidUnits" class="n-note">
+    <p v-if="training.solidUnits || training.liquidUnits" class="n-note">
       Eén eenheid voeding komt overeen met 30g koolhydraten (dat is ongeveer één
       gel, reep of grote banaan). Eén eenheid vloeistof komt overeen met één
       bidon van 500 ml.
@@ -39,7 +39,7 @@
         :key="`${block.label}${index}`"
         :block="block"
         :active="activeIndex === index"
-        :type="store.firestoreUserData.zoneType"
+        :type="store.localUserData.zoneType"
       />
     </NTrainingBlocks>
   </NContent>
@@ -67,6 +67,7 @@
         v-if="
           currentStatus !== 'paused' &&
           currentStatus !== 'completed' &&
+          currentStatus !== 'skipped' &&
           currentStatus !== 'idle'
         "
         icon="pause"
@@ -75,7 +76,7 @@
         Pauzeer
       </NButton>
       <NButton
-        v-if="currentStatus !== 'completed'"
+        v-if="currentStatus !== 'completed' && currentStatus !== 'skipped'"
         type="success"
         icon="check"
         :flexible="false"
@@ -145,7 +146,7 @@ const blocks = computed(() => {
   return generateTrainingBlocks(
     props.trainingId,
     store.baseValue,
-    store.firestoreUserData?.zoneType
+    store.localUserData?.zoneType
   )
 })
 

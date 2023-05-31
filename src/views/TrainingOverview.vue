@@ -19,48 +19,31 @@
     </template>
   </NTitleBar>
   <NContent :is-flexible="false">
-    <p>Veel succes deze week!</p>
+    <p><strong>Veel succes deze week!</strong></p>
+    <p>
+      Te weinig tijd om alles te doorlopen? Trainingen die je kan overslaan
+      herken je aan de
+      <span class="material-symbols-rounded n-icon-inline">fast_forward</span
+      >-knop. Dit kan tot 5 keer doorheen het hele programma.
+    </p>
     <NTrainingLinks>
-      <NTrainingLink
-        v-if="store.currentWeekTrainings['training1']"
-        :training-id="store.currentWeekTrainings['training1']"
-        :converted-training-id="getConvertedTrainingId('training1')"
-        :key="`${store.currentWeekNumber}${store.currentWeekTrainings['training1']}`"
-        :completed="isCompleted('training1')"
-        subtitle="Training 1"
-      />
-      <NTrainingLink
-        v-if="store.currentWeekTrainings['training2']"
-        :training-id="store.currentWeekTrainings['training2']"
-        :converted-training-id="getConvertedTrainingId('training2')"
-        :key="`${store.currentWeekNumber}${store.currentWeekTrainings['training2']}`"
-        :completed="isCompleted('training2')"
-        subtitle="Training 2"
-      />
-      <NTrainingLink
-        v-if="store.currentWeekTrainings['training3']"
-        :training-id="store.currentWeekTrainings['training3']"
-        :converted-training-id="getConvertedTrainingId('training3')"
-        :key="`${store.currentWeekNumber}${store.currentWeekTrainings['training3']}`"
-        :completed="isCompleted('training3')"
-        subtitle="Training 3"
-      />
-      <NTrainingLink
-        v-if="store.currentWeekTrainings['training4']"
-        :training-id="store.currentWeekTrainings['training4']"
-        :converted-training-id="getConvertedTrainingId('training4')"
-        :key="`${store.currentWeekNumber}${store.currentWeekTrainings['training4']}`"
-        :completed="isCompleted('training4')"
-        subtitle="Training 4"
-      />
-      <NTrainingLink
-        v-if="store.currentWeekTrainings['training5']"
-        :training-id="store.currentWeekTrainings['training5']"
-        :converted-training-id="getConvertedTrainingId('training5')"
-        :key="`${store.currentWeekNumber}${store.currentWeekTrainings['training5']}`"
-        :completed="isCompleted('training5')"
-        subtitle="Training 5"
-      />
+      <template v-for="(trainingKey, index) in trainingKeys">
+        <NTrainingLink
+          v-if="store.currentWeekTrainings[trainingKey]"
+          :training-id="store.currentWeekTrainings[trainingKey] || '111.111'"
+          :converted-training-id="getConvertedTrainingId(trainingKey)"
+          :key="`${store.currentWeekNumber}${store.currentWeekTrainings[trainingKey]}`"
+          :completed="isCompleted(trainingKey)"
+          :skipped="isSkipped(trainingKey)"
+          :skippable="
+            store.skippingIsEnabled &&
+            isSkippable(trainingKey) &&
+            !isCompleted(trainingKey) &&
+            !isSkipped(trainingKey)
+          "
+          :subtitle="`Training ${index + 1}`"
+        />
+      </template>
     </NTrainingLinks>
     <template v-if="store.firestoreUserData.extraTime">
       <h2 class="n-divider-title">
@@ -72,30 +55,24 @@
         </div>
       </h2>
       <NTrainingLinks>
-        <NTrainingLink
-          v-if="store.currentWeekTrainings['bonus1']"
-          :training-id="store.currentWeekTrainings['bonus1']"
-          :converted-training-id="getConvertedTrainingId('bonus1')"
-          :key="`${store.currentWeekNumber}${store.currentWeekTrainings['bonus1']}`"
-          :completed="isCompleted('bonus1')"
-          subtitle="Bonustraining 1"
-        />
-        <NTrainingLink
-          v-if="store.currentWeekTrainings['bonus2']"
-          :training-id="store.currentWeekTrainings['bonus2']"
-          :converted-training-id="getConvertedTrainingId('bonus2')"
-          :key="`${store.currentWeekNumber}${store.currentWeekTrainings['bonus2']}`"
-          :completed="isCompleted('bonus2')"
-          subtitle="Bonustraining 2"
-        />
-        <NTrainingLink
-          v-if="store.currentWeekTrainings['bonus3']"
-          :training-id="store.currentWeekTrainings['bonus3']"
-          :converted-training-id="getConvertedTrainingId('bonus3')"
-          :key="`${store.currentWeekNumber}${store.currentWeekTrainings['bonus3']}`"
-          :completed="isCompleted('bonus3')"
-          subtitle="Bonustraining 3"
-        />
+        <template v-for="(bonusTrainingKey, index) in bonusTrainingKeys">
+          <NTrainingLink
+            v-if="store.currentWeekTrainings[bonusTrainingKey]"
+            :training-id="
+              store.currentWeekTrainings[bonusTrainingKey] || '111.111'
+            "
+            :converted-training-id="getConvertedTrainingId(bonusTrainingKey)"
+            :key="`${store.currentWeekNumber}${store.currentWeekTrainings[bonusTrainingKey]}`"
+            :completed="isCompleted(bonusTrainingKey)"
+            :skipped="isSkipped(bonusTrainingKey)"
+            :skippable="
+              store.skippingIsEnabled &&
+              isSkippable(bonusTrainingKey) &&
+              !isSkipped(bonusTrainingKey)
+            "
+            :subtitle="`Bonustraining ${index + 1}`"
+          />
+        </template>
       </NTrainingLinks>
     </template>
     <NLegend />
@@ -121,6 +98,16 @@ import { onMounted } from 'vue'
 
 const store = useStore()
 
+const trainingKeys: TrainingKey[] = [
+  'training1',
+  'training2',
+  'training3',
+  'training4',
+  'training5',
+]
+
+const bonusTrainingKeys: TrainingKey[] = ['bonus1', 'bonus2', 'bonus3']
+
 function getConvertedTrainingId(key: TrainingKey) {
   return convertTrainingIdToKey(
     store.currentWeekTrainings[key] || '999.999',
@@ -139,6 +126,22 @@ function isCompleted(key: TrainingKey) {
   } else {
     return false
   }
+}
+
+function isSkipped(key: TrainingKey) {
+  const trainings = store.firestoreUserData?.trainings
+  const convertedTrainingKey = getConvertedTrainingId(key)
+
+  if (trainings) {
+    const training = trainings[convertedTrainingKey]
+    return training && training.status === 'skipped'
+  } else {
+    return false
+  }
+}
+
+function isSkippable(key: TrainingKey) {
+  return store.currentWeekTrainings.optionals?.includes(key)
 }
 
 onMounted(async () => {
@@ -180,5 +183,9 @@ function previousWeek() {
   letter-spacing: 0;
   line-height: 20px;
   text-transform: none;
+}
+
+.n-icon-inline {
+  vertical-align: middle;
 }
 </style>

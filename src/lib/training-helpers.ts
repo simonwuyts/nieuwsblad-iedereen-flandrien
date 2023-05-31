@@ -37,7 +37,8 @@ export function getCurrentTrainingLine(
   const levelKey = level === 'BEGINNER' ? 'beginner' : 'advanced'
   const waveKey = previousWave ? 'previousWave' : 'newUser'
 
-  return lines[waveKey][sexKey][levelKey][weekNumber - 1]
+  console.log(lines[waveKey][sexKey][levelKey][weekNumber - 1] || {})
+  return lines[waveKey][sexKey][levelKey][weekNumber - 1] || {}
 }
 
 export function getTrainingLineWeeks(
@@ -158,4 +159,29 @@ export function getElapsedSeconds(
     result = result + difference
   }
   return result
+}
+
+export function getGoalMessage(
+  level: 'BEGINNER' | 'GEVORDERD',
+  didPreviousWave: boolean,
+  extraTime: boolean
+) {
+  switch (level) {
+    case 'BEGINNER':
+      if (!didPreviousWave) {
+        return 'Dit plan leert je beter klimmen, 1 lange col beklimmen is een realistisch doel.'
+      } else {
+        if (!extraTime) {
+          return 'Dit plan bereidt je voor op het specifiek beklimmen van 1 mythische col.'
+        } else {
+          return 'Dit plan is gericht op uitdagingen met meerdere cols.'
+        }
+      }
+    case 'GEVORDERD':
+      if (!didPreviousWave) {
+        return 'Dit plan is specifiek gericht om 1 mythische col zo snel mogelijk te overwinnen.'
+      } else {
+        return 'Dit plan is gericht op uitdagingen met meerdere cols.'
+      }
+  }
 }
