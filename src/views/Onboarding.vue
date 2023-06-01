@@ -104,7 +104,7 @@ const goalMessage = computed(() => {
 })
 
 async function save() {
-  await store.saveFirestoreUserData(extraTime.value)
+  store.saveFirestoreUserData(extraTime.value)
   store.localUserData.zoneType = zoneType.value
   store.localUserData.maxHeartRate = maxHeartRate.value
   store.localUserData.maxFTP = maxFTP.value
