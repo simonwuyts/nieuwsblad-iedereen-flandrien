@@ -86,6 +86,13 @@
       </NButton>
       <NButton
         v-if="currentStatus === 'completed'"
+        icon="chevron_left"
+        @click="$router.push({ name: 'trainingOverview' })"
+      >
+        Naar overzicht
+      </NButton>
+      <NButton
+        v-if="currentStatus === 'completed'"
         icon="refresh"
         @click="reset"
       >

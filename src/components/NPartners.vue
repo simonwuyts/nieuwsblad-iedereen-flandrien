@@ -1,6 +1,6 @@
 <template>
   <div class="n-partners">
-    <img
+    <!-- <img
       class="n-partner"
       src="https://static.nieuwsblad.be/Assets/Images_Upload/2023/02/03/logo-bikerepublic.png"
       alt="Bike Republic"
@@ -14,7 +14,7 @@
       class="n-partner"
       src="https://static.nieuwsblad.be/Assets/Images_Upload/2023/02/03/logo-hipro.png"
       alt="HiPRO"
-    />
+    /> -->
     <img
       class="n-partner"
       src="https://static.nieuwsblad.be/Assets/Images_Upload/2023/02/13/lotto.png"

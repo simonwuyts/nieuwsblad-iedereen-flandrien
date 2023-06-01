@@ -19,13 +19,15 @@
     </template>
   </NTitleBar>
   <NContent :is-flexible="false">
-    <p><strong>Veel succes deze week!</strong></p>
-    <p>
-      Te weinig tijd om alles te doorlopen? Trainingen die je kan overslaan
-      herken je aan de
-      <span class="material-symbols-rounded n-icon-inline">fast_forward</span
-      >-knop. Dit kan tot 5 keer doorheen het hele programma.
-    </p>
+    <p>Veel succes deze week!</p>
+    <NBox>
+      <p>
+        Te weinig tijd om alles te doorlopen? Trainingen die je kan overslaan
+        herken je aan de
+        <span class="material-symbols-rounded n-icon-inline">fast_forward</span
+        >-knop. Dit kan tot 5 keer doorheen het hele programma.
+      </p>
+    </NBox>
     <NTrainingLinks>
       <template v-for="(trainingKey, index) in trainingKeys">
         <NTrainingLink
@@ -82,6 +84,7 @@
 </template>
 
 <script setup lang="ts">
+import NBox from '@/components/NBox.vue'
 import NButton from '@/components/NButton.vue'
 import NContent from '@/components/NContent.vue'
 import NFaq from '@/components/NFaq.vue'
@@ -186,6 +189,12 @@ function previousWeek() {
 }
 
 .n-icon-inline {
+  background-color: var(--color-nb-orange);
+  color: #fff;
+  display: inline-block;
+  font-size: 18px;
+  margin: 0 4px;
+  padding: 4px;
   vertical-align: middle;
 }
 </style>

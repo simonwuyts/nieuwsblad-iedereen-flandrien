@@ -2,10 +2,10 @@
   <NHeader />
   <NTitleBar title="Iedereen Flandrien" />
   <NContent>
-    <p>Welkom bij Iedereen Flandrien.</p>
+    <p>Welkom bij het zomerprogramma van Iedereen Flandrien.</p>
     <p>
-      Hier vind je twaalf weken lang je persoonlijke trainingsschema’s en
-      exclusieve voedingstips van onze experts.
+      Hier vind je twaalf weken lang je trainingsschema’s op maat en exclusieve
+      voedingstips van onze experts.
       <strong>
         Vul het e-mailadres in waarmee je bent ingeschreven en start meteen.
       </strong>
