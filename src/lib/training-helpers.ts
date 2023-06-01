@@ -37,7 +37,6 @@ export function getCurrentTrainingLine(
   const levelKey = level === 'BEGINNER' ? 'beginner' : 'advanced'
   const waveKey = previousWave ? 'previousWave' : 'newUser'
 
-  console.log(lines[waveKey][sexKey][levelKey][weekNumber - 1] || {})
   return lines[waveKey][sexKey][levelKey][weekNumber - 1] || {}
 }
 
